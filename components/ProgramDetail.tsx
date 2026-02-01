@@ -100,8 +100,14 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({ program, onClose }
             <div className="flex gap-2">
               <button
                 onClick={() => {
-                  import('../services/notifications').then(({ subscribeToProgram }) => {
-                    subscribeToProgram(program.id);
+                  import('../services/notifications').then(async ({ subscribeToProgram }) => {
+                    const success = await subscribeToProgram(program.id);
+                    if (success) {
+                      alert(`✅ You will be notified about ${displayName}`);
+                    } else {
+                      // subscribeToProgram already logs errors, but maybe user denied prompt
+                      // ensure subscribeToProgram returns false if denied
+                    }
                   });
                 }}
                 className="flex-1 bg-[#eab308] hover:bg-[#ca9a04] text-white font-bold py-3 md:py-3.5 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm md:text-base transition-transform active:scale-95"

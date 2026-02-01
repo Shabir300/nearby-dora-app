@@ -29,12 +29,12 @@ export default defineConfig(({ mode }) => {
             display: 'standalone',
             icons: [
               {
-                src: 'https://crm.pcirealestate.site/wp-content/uploads/2026/01/Logo-DTQ-app.png',
+                src: '/pwa-192x192.png',
                 sizes: '192x192',
                 type: 'image/png'
               },
               {
-                src: 'https://crm.pcirealestate.site/wp-content/uploads/2026/01/Logo-DTQ-app.png',
+                src: '/pwa-512x512.png',
                 sizes: '512x512',
                 type: 'image/png'
               }

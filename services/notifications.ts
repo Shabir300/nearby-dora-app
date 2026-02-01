@@ -13,14 +13,15 @@ export const initOneSignal = async () => {
         await OneSignal.init({
             appId: "0b21b40a-9d30-4ff1-ace9-a2cf44b43ee7",
             allowLocalhostAsSecureOrigin: true,
-            notifyButton: {
-                enable: true,
-            },
         });
         console.log("OneSignal initialized successfully");
     } catch (error) {
-        console.error("OneSignal init error (check Site URL in Dashboard vs Browser URL):", error);
+        console.error("OneSignal init error:", error);
     }
+};
+
+export const checkPermission = () => {
+    return Notification.permission; // 'granted', 'denied', 'default'
 };
 
 export const subscribeToProgram = async (programId: string) => {
