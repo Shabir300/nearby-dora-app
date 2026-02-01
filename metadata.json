@@ -1,0 +1,7 @@
+{
+  "name": "NearbyPrograms - Event Discovery",
+  "description": "A modern, location-based app to discover nearby programs, events, and activities with interactive map and real-time distance tracking.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

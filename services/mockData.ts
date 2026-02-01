@@ -1,0 +1,197 @@
+
+import { Program } from '../types';
+
+export const MOCK_PROGRAMS: Program[] = [
+  {
+    id: 'abpara',
+    name: 'Dora Quran - Abpara',
+    venue: 'Regalia Hotel',
+    address: 'Street 48, G-6/1, near New Aabpara, Islamabad',
+    location: { lat: 33.7051, lng: 73.0844 },
+    contact: '03335120812',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/T88PshamKFinq5VP9'
+  },
+  {
+    id: 'ghauri-town',
+    name: 'Dora Quran - Ghauri Town',
+    venue: 'Grand Oasis Marquee',
+    address: 'Near Petrol Pump, Service Road, Phase 2, Ghauri Town',
+    location: { lat: 33.6333, lng: 73.1235 },
+    contact: '03148925873',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/ZnQb6xiYy6RRLMP57'
+  },
+  {
+    id: 'wasna',
+    name: 'Dora Quran - Jinnah Garden',
+    venue: 'Wasna Event Complex',
+    address: 'Block E, Jinnah Garden, near Naval Anchorage',
+    location: { lat: 33.5620, lng: 73.1610 },
+    contact: '03273777117',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/VBT9byCVoiXooycv9'
+  },
+  {
+    id: 'adam-lodge',
+    name: 'Dora Quran - Adam Lodge',
+    venue: 'Adam Lodge',
+    address: 'Chatta Bakhtawar, Park Road, Islamabad',
+    location: { lat: 33.6700, lng: 73.1200 },
+    contact: '03005114500',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/V4Tk5Rc3PSkAcsKY8'
+  },
+  {
+    id: 'murree-road',
+    name: 'Dora Quran - Bhara Kahu',
+    venue: 'Milan Marriage Hall',
+    address: 'Main Murree Road, Bhara Kahu, Islamabad',
+    location: { lat: 33.7380, lng: 73.1750 },
+    contact: '03145835458',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/txitD3JnTdSwWr958'
+  },
+  {
+    id: 'humak',
+    name: 'Dora Quran - Humak',
+    venue: 'Chaudhry Marriage Hall',
+    address: 'Nai Abadi, Model Town Humak, Islamabad',
+    location: { lat: 33.5500, lng: 73.1400 },
+    contact: '03139856449',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/gwh42zVFv6YYK4tT8'
+  },
+  {
+    id: 'i-10',
+    name: 'Dora Quran - I-10',
+    venue: 'Basement Masjid Hall',
+    address: 'Kick Start, Plot No. 189, I-10/3, Islamabad',
+    location: { lat: 33.6450, lng: 73.0350 },
+    contact: '03355333095',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/hVxxPVqnWi9JLRB26'
+  },
+  {
+    id: 'pwd',
+    name: 'Dora Quran - Pakistan Town',
+    venue: 'Community Hub',
+    address: 'Ground Floor, Silk Center, Street 18, Phase 2, Pakistan Town',
+    location: { lat: 33.5850, lng: 73.1400 },
+    contact: '03112111193',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/Yg5YGKBBzpmwqGzh9'
+  },
+  {
+    id: 'f-11',
+    name: 'Dora Quran - F-11',
+    venue: 'Jabal-e-Noor Mosque',
+    address: 'Hilal Road, Sector F-11/3, Islamabad',
+    location: { lat: 33.6844, lng: 73.0064 },
+    contact: '03344328173',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/G37fY32mc8BPRwq67'
+  },
+  {
+    id: 'e-11',
+    name: 'Dora Quran - E-11',
+    venue: 'Jamia Masjid Qurtuba',
+    address: 'Khalid Bin Waleed Road, Street No. 76, Sector E-11/2',
+    location: { lat: 33.7000, lng: 72.9800 },
+    contact: '03014733804',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/bKfqtmXiVEW3HZHi6'
+  },
+  {
+    id: 'pehont',
+    name: 'Dora Quran - Pehont',
+    venue: 'Quran Complex',
+    address: 'Pehont, Islamabad District',
+    location: { lat: 33.7500, lng: 73.2000 },
+    contact: '03455511341',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/s8unJ28p3o3v7D4G6'
+  },
+  {
+    id: 'g-13',
+    name: 'Dora Quran - G-13',
+    venue: 'Rayyan Marquee',
+    address: 'East Service Road, G-13, Islamabad',
+    location: { lat: 33.6496, lng: 72.9774 },
+    contact: '03458562055',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/WmWQGH34qiBfoKs79'
+  },
+  {
+    id: 'g-11',
+    name: 'Dora Quran - G-11',
+    venue: 'Jamia Masjid Al-Huda',
+    address: 'Street No. 39, Sector G-11/2, Islamabad',
+    location: { lat: 33.6700, lng: 73.0000 },
+    contact: '03321311222',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/5RoZ5ouyAfQKrhai7'
+  },
+  {
+    id: 'kahuta',
+    name: 'Dora Quran - Kahuta',
+    venue: 'Ghulam Rabbani Qureshi Welfare Trust',
+    address: 'Kidney Center, Kahuta, Pakistan',
+    location: { lat: 33.5900, lng: 73.3800 },
+    contact: '03005018029',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/34MnsZPZU6HESjLL6'
+  },
+  {
+    id: 'murree',
+    name: 'Dora Quran - Murree',
+    venue: 'Masjid Sirat-ul-Jannah',
+    address: 'Company Bagh, Murree, Pakistan',
+    location: { lat: 33.9070, lng: 73.3943 },
+    contact: '03455992634',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/C1iAdftKRQLiFkrw8'
+  },
+  {
+    id: 'mansehra-road',
+    name: 'Dora Quran - Mansehra Road',
+    venue: 'Madani Jamia Masjid',
+    address: 'Irrigation Jab Pul (Bridge), Mansehra Road',
+    location: { lat: 34.1500, lng: 73.2200 },
+    contact: '03335057120',
+    organizer: 'Dora Quran',
+    timing: 'Daily Ramadan Program',
+    category: 'Religious',
+    googleMapsLink: 'https://maps.app.goo.gl/YrcbFWNBBzrvRhKj9'
+  }
+];
