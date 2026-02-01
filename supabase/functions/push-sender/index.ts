@@ -54,7 +54,12 @@ serve(async (req) => {
         }
       };
       
-      const payload = JSON.stringify({ title, body, url });
+      const payload = JSON.stringify({ 
+          title, 
+          body, 
+          url,
+          image: 'https://crm.pcirealestate.site/wp-content/uploads/2026/01/BG-Image-DTQ.png' // Default beautiful image
+      });
 
       return webpush.sendNotification(pushConfig, payload).catch(err => {
         if (err.statusCode === 410) {

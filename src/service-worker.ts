@@ -16,9 +16,17 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'Nearby Dora Quran';
   const options = {
     body: data.body || 'New update available!',
-    icon: '/pwa-192x192.png',
-    badge: '/pwa-192x192.png',
-    data: data.url || '/'
+    icon: '/pwa-192x192.png', // Main Icon (Sender Avatar)
+    badge: '/pwa-192x192.png', // Small Status Bar Icon (Should ideally be monochrome)
+    image: data.image || 'https://crm.pcirealestate.site/wp-content/uploads/2026/01/BG-Image-DTQ.png', // Big Picture
+    vibrate: [100, 50, 100],
+    data: data.url || '/',
+    actions: [
+        {
+            action: 'explore',
+            title: 'View Details'
+        }
+    ]
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
