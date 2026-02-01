@@ -1,12 +1,12 @@
 
 import OneSignal from 'react-onesignal';
 
-// Improved initialization to prevent double-calls and specific origin errors
+// 1. Initialize OneSignal (Idempotent)
 export const initOneSignal = async () => {
     try {
-        // @ts-ignore - access internal flag to check if already init
+        // @ts-ignore - Check internal flag to avoid double-init warnings
         if (window.OneSignal && window.OneSignal._initCalled) {
-             console.log("OneSignal already initialized, skipping.");
+             console.log("OneSignal already initialized.");
              return;
         }
 
@@ -20,30 +20,61 @@ export const initOneSignal = async () => {
     }
 };
 
+// 2. Check Permission Status
 export const checkPermission = () => {
     return Notification.permission; // 'granted', 'denied', 'default'
 };
 
+// 3. Subscribe User to a Program (Tagging)
 export const subscribeToProgram = async (programId: string) => {
     try {
-        // 1. Ensure user is actually subscribed to Push
-        // If not, prompt them
+        // A. Ensure Push is Enabled
         const isPushEnabled = OneSignal.User.PushSubscription.optedIn;
         if (!isPushEnabled) {
-             console.log("User not opted in, prompting...");
+             console.log("User not opted in, requesting permission...");
              await OneSignal.Slidedown.promptPush();
         }
 
-        // 2. Add the tag
+        // B. Apply Data Tag
         await OneSignal.User.addTag("program_id", programId);
-        console.log("Subscribed to", programId);
+        console.log("Subscribed to program:", programId);
         return true;
     } catch (e) {
-        console.error("Subscription error:", e);
-        // Fallback: Try native prompt if slidedown fails
+        console.error("Subscription tagging error:", e);
+        // Fallback: Native Prompt
         try { 
             await OneSignal.Slidedown.promptPush(); 
-        } catch(e2) { console.error(e2); }
+        } catch(e2) { console.error("Native prompt failed:", e2); }
         return false;
+    }
+};
+
+// 4. Test Notification (Backend Connectivity Check)
+export const testNotification = async () => {
+    try {
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+        
+        console.log("Sending test request to:", `${supabaseUrl}/functions/v1/send-reminders`);
+
+        const response = await fetch(`${supabaseUrl}/functions/v1/send-reminders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${anonKey}`
+            },
+            body: JSON.stringify({ test: true })
+        });
+        
+        if (!response.ok) {
+            const err = await response.text();
+            throw new Error(`Server ${response.status}: ${err}`);
+        }
+        
+        const data = await response.json();
+        return { success: true, data };
+    } catch (error: any) {
+        console.error("Test notification failed:", error);
+        return { success: false, error: error.message };
     }
 };
