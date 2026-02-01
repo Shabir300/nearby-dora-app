@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Icons } from '../constants';
-import OneSignal from 'react-onesignal';
+// import OneSignal from 'react-onesignal';
 
 // Custom hook to handle the PWA install prompt
 const useInstallPrompt = () => {
@@ -90,20 +90,15 @@ export const InstallPrompt: React.FC = () => {
 
         console.log("Requesting notification permission...");
         try {
-            await OneSignal.Slidedown.promptPush();
-            // Wait a sec to see if it worked (OneSignal promise behavior varies)
-        } catch (e) {
-            console.error("Slidedown failed, trying native prompt", e);
-            try {
-                const result = await Notification.requestPermission();
-                if (result === 'granted') {
-                    // Success
-                } else if (result === 'denied') {
-                    alert("Notifications blocked. Please enable them in settings.");
-                }
-            } catch (e2) {
-                console.error("Native prompt failed", e2);
+            const { subscribeToPush } = await import('../services/push-service');
+            const success = await subscribeToPush();
+            if (success) {
+                // Success
+            } else {
+                alert("Notifications blocked or failed. Please check settings.");
             }
+        } catch (e) {
+            console.error("Prompt failed", e);
         }
 
         // Close modal after attempt
@@ -186,14 +181,28 @@ export const InstallPrompt: React.FC = () => {
                             <button
                                 onClick={async () => {
                                     alert("Sending test request to server...");
-                                    import('../services/notifications').then(async ({ testNotification }) => {
-                                        const result = await testNotification();
-                                        if (result.success) {
-                                            alert("✅ Server sent test notification! Check your device.");
-                                        } else {
-                                            alert("❌ Failed: " + result.error + "\n\n(Did you deploy the supabase function?)");
-                                        }
-                                    });
+                                    try {
+                                        const { subscribeToPush } = await import('../services/push-service');
+                                        // Ensure subscribed first
+                                        await subscribeToPush();
+
+                                        // Call Edge Function
+                                        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/push-sender`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+                                            },
+                                            body: JSON.stringify({
+                                                title: "Test Notification",
+                                                body: "If you see this, Native Push is working!",
+                                                url: window.location.href
+                                            })
+                                        });
+                                        alert("✅ Signal sent! Check for a notification now.");
+                                    } catch (e) {
+                                        alert("❌ Failed: " + String(e));
+                                    }
                                 }}
                                 className="text-xs text-slate-400 underline mt-2"
                             >

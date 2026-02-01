@@ -1,16 +1,43 @@
 
-import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
+/// <reference lib="webworker" />
 import { clientsClaim } from 'workbox-core';
+import { precacheAndRoute } from 'workbox-precaching';
 
-// 1. Regular PWA Caching
-declare let self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 
-cleanupOutdatedCaches();
-precacheAndRoute(self.__WB_MANIFEST);
-
+// 1. Standard PWA Caching
 self.skipWaiting();
 clientsClaim();
+precacheAndRoute(self.__WB_MANIFEST);
 
-// 2. Import OneSignal SDK Worker
-// This ensures OneSignal runs INSIDE the main SW
-importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+// 2. Native Push Listeners (New)
+self.addEventListener('push', (event) => {
+  const data = event.data?.json() ?? {};
+  const title = data.title || 'Nearby Dora Quran';
+  const options = {
+    body: data.body || 'New update available!',
+    icon: '/pwa-192x192.png',
+    badge: '/pwa-192x192.png',
+    data: data.url || '/'
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      if (clientList.length > 0) {
+        let client = clientList[0];
+        for (let i = 0; i < clientList.length; i++) {
+          if (clientList[i].focused) {
+            client = clientList[i];
+          }
+        }
+        return client.focus();
+      }
+      return clients.openWindow(event.notification.data);
+    })
+  );
+});

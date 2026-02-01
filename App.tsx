@@ -9,7 +9,7 @@ import { ProgramDetail } from './components/ProgramDetail';
 import { InstallPrompt } from './components/InstallPrompt';
 import { LocationSearch } from './components/LocationSearch';
 import { supabase } from './services/supabase';
-import { initOneSignal } from './services/notifications';
+// import { initOneSignal } from './services/notifications';
 
 const App: React.FC = () => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
@@ -77,8 +77,7 @@ const App: React.FC = () => {
       return () => navigator.geolocation.clearWatch(watchId);
     }
 
-    // OneSignal init
-    initOneSignal();
+    // OneSignal init removed for Native Push
   }, []);
 
   const handleLocationSelect = useCallback((location: { lat: number; lng: number, address: string }) => {

@@ -21,6 +21,12 @@ A location-based progressive web application (PWA) designed to help users find n
 -   **Notifications**: OneSignal SDK
 -   **PWA**: `vite-plugin-pwa` (Workbox)
 
+## Architecture Notes 🛠️
+
+-   **Unified Service Worker**: The app uses a custom `service-worker.ts` (via `injectManifest`) to merge PWA offline caching with the OneSignal Push SDK. This prevents conflicts where push notifications might be blocked.
+-   **SPA Routing**: Includes `vercel.json` to handle client-side routing on Vercel deployments.
+-   **Data Consistency**: The database is seeded with a verified list of ~30 locations (`supabase/seed.sql`) to ensure accuracy over "probable" search results.
+
 ## Getting Started
 
 ### Prerequisites

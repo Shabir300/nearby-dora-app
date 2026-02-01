@@ -100,13 +100,12 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({ program, onClose }
             <div className="flex gap-2">
               <button
                 onClick={() => {
-                  import('../services/notifications').then(async ({ subscribeToProgram }) => {
-                    const success = await subscribeToProgram(program.id);
+                  import('../services/push-service').then(async ({ subscribeToPush }) => {
+                    const success = await subscribeToPush();
                     if (success) {
-                      alert(`✅ You will be notified about ${displayName}`);
+                      alert(`✅ Notifications enabled! You will receive updates.`);
                     } else {
-                      // subscribeToProgram already logs errors, but maybe user denied prompt
-                      // ensure subscribeToProgram returns false if denied
+                      alert("⚠️ Could not enable notifications. Please check site permissions.");
                     }
                   });
                 }}
