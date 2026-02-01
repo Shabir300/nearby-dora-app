@@ -20,12 +20,33 @@ function urlBase64ToUint8Array(base64String: string) {
 }
 
 export const subscribeToPush = async (userId?: string) => {
-  if (!('serviceWorker' in navigator)) return false;
+  if (!('serviceWorker' in navigator)) {
+    console.error("Push Error: Service Worker not supported.");
+    return false;
+  }
+
+  if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+     console.error("Push Error: Push Notifications require HTTPS (or localhost). Current origin is insecure.");
+     return false;
+  }
 
   try {
-    const registration = await navigator.serviceWorker.ready;
+    // 1. Check Permission State
+    if (Notification.permission === 'denied') {
+      console.error("Push Error: Permission is explicitly denied.");
+      return false;
+    }
 
-    // 1. Subscribe to Browser Push Manager
+    // 2. Wait for SW
+    const registration = await navigator.serviceWorker.ready;
+    console.log("Push Service: SW Ready", registration);
+
+    if (!registration.pushManager) {
+      console.error("Push Error: PushManager not available (Are you on HTTP?)");
+      return false;
+    }
+
+    // 3. Subscribe to Browser Push Manager
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)

@@ -78,7 +78,7 @@ export const InstallPrompt: React.FC = () => {
         const permission = Notification.permission;
 
         if (permission === 'denied') {
-            alert("⚠️ Notifications are blocked.\n\nPlease tap the 'Lock' icon in your address bar -> Site Settings -> Notifications -> Allow.");
+            alert("⚠️ Notifications are blocked by your browser.\n\nTo enable:\n1. Tap the 'Lock' 🔒 icon in the URL bar.\n2. Tap 'Permissions' or 'Site Settings'.\n3. Tap 'Notifications' -> 'Allow'.\n4. Refresh the page.");
             return;
         }
 
