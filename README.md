@@ -4,13 +4,13 @@ A location-based progressive web application (PWA) designed to help users find n
 
 ## Key Features
 
--   **Live Geolocation**: Instantly finds programs near your current location.
--   **Interactive Map**: Powered by Google Maps API with custom markers and clusters.
--   **Program Details**: Elegant, poster-style details view with time, facilities, and contact info.
--   **Push Notifications**: Integrated OneSignal for "Alert Me" reminders on specific programs.
+-   **Smart Geolocation**: Live tracking with intelligent debouncing (50m threshold) to prevent battery drain and data loops.
+-   **Interactive Map**: Powered by Google Maps API with premium SVG vector markers and smooth camera automation.
+-   **Minimalist UI**: Clean, tab-style program cards that expand into immersive, poster-like detail views.
+-   **Robust Notifications**: "Alert Me" system with OneSignal and native browser permission fallback for reliable delivery.
 -   **Location Search**: Autocomplete search to find programs in other areas (powered by Google Places).
--   **Installable PWA**: Works offline-first and can be installed on iOS/Android home screens.
--   **Premium UI**: Deep Green & Gold aesthetic, featuring glassmorphism and smooth animations.
+-   **Cross-Platform PWA**: Optimized for iOS (Notch support), Android, and Desktop with offline caching and local assets.
+-   **Haptic Feedback**: Subtle tactile response on interactions for a native app feel.
 
 ## Tech Stack
 

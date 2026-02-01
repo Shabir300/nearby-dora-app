@@ -169,6 +169,23 @@ export const InstallPrompt: React.FC = () => {
                             >
                                 Turn On Notifications
                             </button>
+
+                            <button
+                                onClick={async () => {
+                                    alert("Sending test request to server...");
+                                    import('../services/notifications').then(async ({ testNotification }) => {
+                                        const result = await testNotification();
+                                        if (result.success) {
+                                            alert("✅ Server sent test notification! Check your device.");
+                                        } else {
+                                            alert("❌ Failed: " + result.error + "\n\n(Did you deploy the supabase function?)");
+                                        }
+                                    });
+                                }}
+                                className="text-xs text-slate-400 underline mt-2"
+                            >
+                                Test Connection
+                            </button>
                             <button
                                 onClick={() => setShow(false)}
                                 className="w-full py-4 text-slate-400 font-bold text-sm hover:text-slate-600"
