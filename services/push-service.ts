@@ -64,14 +64,16 @@ export const subscribeToPush = async (userId?: string) => {
 
     if (error) {
         console.error("Supabase Save Error:", error);
+        alert("Database Error: " + error.message); // DEBUG: Show user
         return false;
     }
     
     console.log("Subscribed to Push:", subscription.endpoint);
     return true;
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Push Subscription Error:", error);
+    alert("Push Error: " + (error.message || String(error))); // DEBUG: Show user
     return false;
   }
 };
