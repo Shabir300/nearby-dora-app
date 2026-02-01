@@ -38,12 +38,12 @@ export const InstallPrompt: React.FC = () => {
 
     useEffect(() => {
         // Show welcome screen on first visit
-        const hasVisited = localStorage.getItem('hasVisitedApp_v2');
-        if (!hasVisited) {
-            // Wait a bit for the app to settle
-            const timer = setTimeout(() => setShow(true), 1500);
-            return () => clearTimeout(timer);
-        }
+        // const hasVisited = localStorage.getItem('hasVisitedApp_v2');
+        // if (!hasVisited) {
+        // Wait a bit for the app to settle
+        const timer = setTimeout(() => setShow(true), 1500);
+        return () => clearTimeout(timer);
+        // }
     }, []);
 
     const handleStart = () => {

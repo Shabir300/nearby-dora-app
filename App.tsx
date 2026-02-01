@@ -210,14 +210,15 @@ const App: React.FC = () => {
                   ))}
                 </div>
               ) : filteredPrograms.length > 0 ? (
-                filteredPrograms.map(p => (
-                  <ProgramCard
-                    key={p.id}
-                    program={p}
-                    isActive={selectedProgram?.id === p.id}
-                    onViewOnMap={handleViewOnMap}
-                    onOpenDetails={setSelectedProgram}
-                  />
+                filteredPrograms.map((p, index) => (
+                  <div key={p.id} className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: `${index * 100}ms` }}>
+                    <ProgramCard
+                      program={p}
+                      isActive={selectedProgram?.id === p.id}
+                      onViewOnMap={handleViewOnMap}
+                      onOpenDetails={setSelectedProgram}
+                    />
+                  </div>
                 ))
               ) : (
                 <div className="py-20 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200">
@@ -285,14 +286,15 @@ const App: React.FC = () => {
                   ))}
                 </div>
               ) : filteredPrograms.length > 0 ? (
-                filteredPrograms.map(p => (
-                  <ProgramCard
-                    key={p.id}
-                    program={p}
-                    isActive={selectedProgram?.id === p.id}
-                    onViewOnMap={handleViewOnMap}
-                    onOpenDetails={setSelectedProgram}
-                  />
+                filteredPrograms.map((p, index) => (
+                  <div key={p.id} className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: `${index * 100}ms` }}>
+                    <ProgramCard
+                      program={p}
+                      isActive={selectedProgram?.id === p.id}
+                      onViewOnMap={handleViewOnMap}
+                      onOpenDetails={setSelectedProgram}
+                    />
+                  </div>
                 ))
               ) : (
                 <div className="flex flex-col items-center justify-center py-20 text-center bg-white rounded-xl border border-slate-100">

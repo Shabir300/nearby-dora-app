@@ -14,18 +14,18 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({ program, onClose }
   const whatsappLink = `https://wa.me/${program.contact?.replace(/\D/g, '')}?text=${whatsappMessage}`;
 
   return (
-    <div className="fixed inset-0 z-[2000] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4 animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-[2000] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4 animate-in fade-in duration-500 ease-out">
 
       {/* Click outside to close */}
       <div className="absolute inset-0" onClick={onClose}></div>
 
-      <div className="bg-white w-full md:max-w-md rounded-t-3xl md:rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[90vh] animate-in slide-in-from-bottom md:zoom-in-95 duration-300 z-10">
+      <div className="bg-white w-full md:max-w-md rounded-t-3xl md:rounded-2xl overflow-hidden relative shadow-2xl flex flex-col max-h-[90vh] animate-in slide-in-from-bottom duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] md:zoom-in-95 z-10">
 
         {/* Close Button */}
         <div className="absolute top-3 right-3 z-30">
           <button
             onClick={onClose}
-            className="p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-all backdrop-blur-md"
+            className="p-2 bg-black/40 hover:bg-black/60 rounded-full text-white transition-all backdrop-blur-md active:scale-90"
           >
             <Icons.Close />
           </button>
