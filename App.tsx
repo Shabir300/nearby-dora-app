@@ -96,65 +96,25 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchPrograms = async () => {
       setLoading(true);
-      // Use searchCenter if active, otherwise userLocation, otherwise default
+      // Simulate network delay for effect
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const { STATIC_PROGRAMS } = await import('./src/data/staticPrograms');
+
+      // Calculate distances for sorting
       const effectiveLocation = searchCenter || userLocation || { lat: 33.6844, lng: 73.0479 };
-      const { lat, lng } = effectiveLocation;
+      const mappedPrograms = STATIC_PROGRAMS.map(p => ({
+        ...p,
+        distance: getDistance(effectiveLocation.lat, effectiveLocation.lng, p.location.lat, p.location.lng) / 1000 // meters to km
+      }));
 
-      const { data, error } = await supabase
-        .rpc('nearby_programs', {
-          user_lat: lat,
-          user_lng: lng,
-          radius_km: 10000 // Huge radius to ensure we get data, relying on local filtering for specific view
-        });
-
-      if (data === null || (Array.isArray(data) && data.length === 0)) {
-        console.log("No data returned from RPC near", lat, lng);
-      } else {
-        console.log("Fetched", data.length, "programs");
-      }
-
-      if (error) {
-        console.error('Error fetching programs:', error);
-        // Fallback? No, just show empty or error
-      } else if (data) {
-        // Map Supabase result to Program type
-        // Map Supabase result to Program type and Deduplicate
-        const uniquePrograms = new Map();
-
-        data.forEach((item: any) => {
-          // Normalize name: remove "Dora Quran" and whitespace
-          const cleanName = (item.name || '').replace(/dora\s*quran/gi, '').replace(/^[-\s]+/, '').trim() || item.venue;
-          const cleanVenue = (item.venue || '').trim();
-
-          // Create a unique key based on venue and rough location to filter duplicates
-          const uniqueKey = `${cleanVenue.toLowerCase()}-${item.lat.toFixed(4)}-${item.lng.toFixed(4)}`;
-
-          if (!uniquePrograms.has(uniqueKey)) {
-            uniquePrograms.set(uniqueKey, {
-              id: item.id,
-              name: cleanName, // Use cleaned name globally
-              venue: item.venue,
-              address: item.address,
-              location: { lat: item.lat, lng: item.lng },
-              contact: item.contact,
-              organizer: item.organizer,
-              timing: item.timing,
-              category: item.category,
-              googleMapsLink: item.google_maps_link,
-              distance: item.dist_km
-            });
-          }
-        });
-
-        const mappedPrograms: Program[] = Array.from(uniquePrograms.values());
-
-        setPrograms(mappedPrograms);
-      }
+      console.log("Loaded", mappedPrograms.length, "static programs");
+      setPrograms(mappedPrograms);
       setLoading(false);
     };
 
     fetchPrograms();
-  }, [userLocation, searchCenter]); // Re-fetch if user moves or searches new location
+  }, [userLocation, searchCenter]);
 
   const filteredPrograms = useMemo(() => {
     return programs

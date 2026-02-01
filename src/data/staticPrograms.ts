@@ -1,0 +1,335 @@
+
+import { Program } from '../../types';
+
+export const STATIC_PROGRAMS: Program[] = [
+  {
+    id: "1",
+    name: "Dora Quran @ Dewan-e-Khas",
+    venue: "Dewan-e-Khas Marriage Hall",
+    address: "near Misrial Road, Rawalpindi Cantt",
+    location: { lat: 33.5970, lng: 73.0039 },
+    contact: "+923005077164",
+    googleMapsLink: "https://maps.app.goo.gl/1iERmCkWCojMCfYJ6",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 2,
+    name: "Dora Quran @ Al-Huda Masjid",
+    venue: "Al-Huda Masjid",
+    address: "Street No. 24-A, Peoples Colony, Tench Bhata, Rawalpindi",
+    location: { lat: 33.5843, lng: 73.0213 },
+    contact: "+923335151916",
+    googleMapsLink: "https://maps.app.goo.gl/WeaXVroL6knF4E1b8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 3,
+    name: "Dora Quran @ Al-Buraq Marquee",
+    venue: "Al-Buraq Marquee",
+    address: "Bani Stop, Khayaban-e-Shifa, Shadman Town, Chakri Road, Rawalpindi",
+    location: { lat: 33.5583, lng: 73.0135 },
+    contact: "+923185349518",
+    googleMapsLink: "https://maps.app.goo.gl/Nhk7fta6RWyj3RPW7",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 4,
+    name: "Dora Quran @ The Venue Marquee",
+    venue: "The Venue Marquee",
+    address: "Kotha Kalan, Morgah, Rawalpindi",
+    location: { lat: 33.5492, lng: 73.0655 },
+    contact: "+923215159579",
+    googleMapsLink: "https://maps.app.goo.gl/qGscXQyXbwj1MQ7y7",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 5,
+    name: "Dora Quran @ Avalon Marquee",
+    venue: "Avalon Marquee",
+    address: "G.T. Road, Opposite DHA 2 (Gate No. 3), Rawalpindi",
+    location: { lat: 33.5206, lng: 73.1525 },
+    contact: "+923215852714",
+    googleMapsLink: "https://maps.app.goo.gl/jpNRWMDiK96ku1FXA",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 6,
+    name: "Dora Quran @ Revelation Marquee",
+    venue: "Revelation Marquee",
+    address: "High Court Road, Gulraiz Gate 2, Rawalpindi",
+    location: { lat: 33.5666, lng: 73.1036 },
+    contact: "+923458507198",
+    googleMapsLink: "https://maps.app.goo.gl/ALbothbcbgAfLbYY8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 7,
+    name: "Dora Quran @ Majesty Marquee",
+    venue: "Majesty Marquee",
+    address: "Bahria Phase 7, near Allah Chowk, Bahria Town",
+    location: { lat: 33.5179, lng: 73.1106 },
+    contact: "+923344221060",
+    googleMapsLink: "https://maps.app.goo.gl/rZjD3WLrdC6W4kU2A",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 8,
+    name: "Dora Quran @ Capri Marquee",
+    venue: "Capri Marquee",
+    address: "Rawal Road, Rawalpindi",
+    location: { lat: 33.6107, lng: 73.0818 },
+    contact: "+923005158417",
+    googleMapsLink: "https://maps.app.goo.gl/8stAPKNGmvfGS6YP8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 9,
+    name: "Dora Quran @ Jamia Masjid Haramain",
+    venue: "Jamia Masjid Haramain Sharifain",
+    address: "Gulzar-e-Quaid, Rawalpindi",
+    location: { lat: 33.5994, lng: 73.1286 },
+    contact: "+923465070646",
+    googleMapsLink: "https://maps.app.goo.gl/SNCkgvT6tLeGnNgA6",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 10,
+    name: "Dora Quran @ Mir Jan Shadi Hall",
+    venue: "Mir Jan Shadi Hall",
+    address: "Dhoke Hafiz, Old Airport Road, Rawalpindi",
+    location: { lat: 33.6078, lng: 73.1112 },
+    contact: "+923333004729",
+    googleMapsLink: "https://maps.app.goo.gl/H1FW8Ag71DSwiab9A",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 11,
+    name: "Dora Quran @ Kashmir Plaza",
+    venue: "Kashmir Plaza",
+    address: "Sector 4, Airport Housing Society (AECHS), Rawalpindi",
+    location: { lat: 33.5871, lng: 73.1192 },
+    contact: "+923005585435",
+    googleMapsLink: "https://maps.app.goo.gl/nEhycXVh8QZAAp5DA",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 12,
+    name: "Dora Quran @ Royal Mansion",
+    venue: "Royal Mansion",
+    address: "Saidpur Road, Haidri Chowk, Rawalpindi",
+    location: { lat: 33.6392, lng: 73.0629 },
+    contact: "+923008550773",
+    googleMapsLink: "https://maps.app.goo.gl/6F3GfxLaWJbZs8MA7",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 13,
+    name: "Dora Quran @ Raj Wedding Hall",
+    venue: "Raj Wedding Hall",
+    address: "Khanna Road, Rawalpindi",
+    location: { lat: 33.6283, lng: 73.1021 },
+    contact: "+923335758239",
+    googleMapsLink: "https://maps.app.goo.gl/wGDNHQbT3omkUE9s9",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 14,
+    name: "Dora Quran @ Royal Palace",
+    venue: "Royal Palace Banquet Hall",
+    address: "New City, G.T. Road, Wah Cantt",
+    location: { lat: 33.7541, lng: 72.7545 },
+    contact: "+923455612409",
+    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg9",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 15,
+    name: "Dora Quran @ Regalia Hotel",
+    venue: "Regalia Hotel",
+    address: "Street 48, G-6/1, near New Aabpara",
+    location: { lat: 33.708963, lng: 73.0832179 },
+    contact: "+923335120812",
+    googleMapsLink: "https://maps.app.goo.gl/T88PshamKFinq5VP9",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 16,
+    name: "Dora Quran @ Grand Oasis",
+    venue: "Grand Oasis Marquee",
+    address: "near Petrol Pump, Service Road, Phase 2, Ghauri Town",
+    location: { lat: 33.6194685, lng: 73.1233313 },
+    contact: "+923148925873",
+    googleMapsLink: "https://maps.app.goo.gl/ZnQb6xiYy6RRLMP57",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 17,
+    name: "Dora Quran @ Wasna Event Complex",
+    venue: "Wasna Event Complex",
+    address: "Block E, Jinnah Garden, near Naval Anchorage",
+    location: { lat: 33.5657175, lng: 73.1650561 },
+    contact: "+923273777117",
+    googleMapsLink: "https://maps.app.goo.gl/VBT9byCVoiXooycv9",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 18,
+    name: "Dora Quran @ Adam Lodge",
+    venue: "Adam Lodge",
+    address: "Chatta Bakhtawar, Park Road",
+    location: { lat: 33.6604918, lng: 73.1547225 },
+    contact: "+923005114500",
+    googleMapsLink: "https://maps.app.goo.gl/V4Tk5Rc3PSkAcsKY8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 19,
+    name: "Dora Quran @ Milan Marriage Hall",
+    venue: "Milan Marriage Hall",
+    address: "Main Murree Road, Bhara Kahu",
+    location: { lat: 33.7445345, lng: 73.1884745 },
+    contact: "+923145835458",
+    googleMapsLink: "https://maps.app.goo.gl/txitD3JnTdSwWr958",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 20,
+    name: "Dora Quran @ Chaudhry Hall",
+    venue: "Chaudhry Marriage Hall",
+    address: "Nai Abadi, Model Town Humak",
+    location: { lat: 33.6511478, lng: 72.9772924 },
+    contact: "+923139856449",
+    googleMapsLink: "https://maps.app.goo.gl/gwh42zVFv6YYK4tT8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 21,
+    name: "Dora Quran @ Basement Masjid Hall",
+    venue: "Basement Masjid Hall",
+    address: "Kick Start, Plot No. 189, I-10/3",
+    location: { lat: 33.6500889, lng: 73.0412641 },
+    contact: "+923355333095",
+    googleMapsLink: "https://maps.app.goo.gl/hVxxPVqnWi9JLRB26",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 22,
+    name: "Dora Quran @ Community Hub",
+    venue: "Community Hub",
+    address: "Ground Floor, Silk Center, Street 18, Phase 2, Pakistan Town",
+    location: { lat: 33.564416, lng: 73.1415468 },
+    contact: "+923112111193",
+    googleMapsLink: "https://maps.app.goo.gl/Yg5YGKBBzpmwqGzh9",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 23,
+    name: "Dora Quran @ Jabal-e-Noor",
+    venue: "Jabal-e-Noor Mosque",
+    address: "Hilal Road, Sector F-11/3",
+    location: { lat: 33.6892667, lng: 72.9837253 },
+    contact: "+923344328173",
+    googleMapsLink: "https://maps.app.goo.gl/G37fY32mc8BPRwq67",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 24,
+    name: "Dora Quran @ Masjid Qurtuba",
+    venue: "Jamia Masjid Qurtuba",
+    address: "Khalid Bin Waleed Road, Street No. 76, Sector E-11/2",
+    location: { lat: 33.7017028, lng: 72.9716702 },
+    contact: "+923014733804",
+    googleMapsLink: "https://maps.app.goo.gl/bKfqtmXiVEW3HZHi6",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 25,
+    name: "Dora Quran @ Quran Complex",
+    venue: "Quran Complex",
+    address: "Pehont",
+    location: { lat: 33.6781384, lng: 73.3052454 },
+    contact: "+923455511341",
+    googleMapsLink: "https://maps.app.goo.gl/s8unJ28p3o3v7D4G6",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 26,
+    name: "Dora Quran @ Rayyan Marquee",
+    venue: "Rayyan Marquee",
+    address: "East Service Road, G-13",
+    location: { lat: 33.6505471, lng: 72.9750115 },
+    contact: "+923458562055",
+    googleMapsLink: "https://maps.app.goo.gl/WmWQGH34qiBfoKs79",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 27,
+    name: "Dora Quran @ Masjid Al-Huda",
+    venue: "Jamia Masjid Al-Huda",
+    address: "Street No. 39, Sector G-11/2",
+    location: { lat: 33.6688397, lng: 72.9891289 },
+    contact: "+923321311222",
+    googleMapsLink: "https://maps.app.goo.gl/5RoZ5ouyAfQKrhai7",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 28,
+    name: "Dora Quran @ Ghulam Rabbani Trust",
+    venue: "Ghulam Rabbani Qureshi Welfare Trust",
+    address: "and Kidney Center",
+    location: { lat: 33.5875152, lng: 73.3839848 },
+    contact: "+923005018029",
+    googleMapsLink: "https://maps.app.goo.gl/34MnsZPZU6HESjLL6",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 29,
+    name: "Dora Quran @ Sirat-ul-Jannah",
+    venue: "Masjid Sirat-ul-Jannah",
+    address: "Company Bagh, Murree",
+    location: { lat: 33.6329664, lng: 73.1243615 },
+    contact: "+923455992634",
+    googleMapsLink: "https://maps.app.goo.gl/C1iAdftKRQLiFkrw8",
+    timing: "08:00 PM",
+    category: "Religious"
+  },
+  {
+    id: 30,
+    name: "Dora Quran @ Madani Masjid",
+    venue: "Madani Jamia Masjid",
+    address: "Irrigation Jab Pul (Bridge), Mansehra Road",
+    location: { lat: 34.1838125, lng: 73.2306875 },
+    contact: "+923335057120",
+    googleMapsLink: "https://maps.app.goo.gl/YrcbFWNBBzrvRhKj9",
+    timing: "08:00 PM",
+    category: "Religious"
+  }
+];
