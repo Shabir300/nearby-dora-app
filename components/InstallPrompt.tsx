@@ -62,12 +62,18 @@ export const InstallPrompt: React.FC = () => {
     };
 
     const handleEnableNotifications = async () => {
+        console.log("Requesting notification permission...");
         try {
             await OneSignal.Slidedown.promptPush();
-            // We assume success or dismissal, close the modal
+            console.log("Prompt triggered");
         } catch (e) {
-            console.error(e);
-            alert("Please enable notifications in your browser settings.");
+            console.error("Slidedown failed, trying native prompt", e);
+            try {
+                await Notification.requestPermission();
+            } catch (e2) {
+                console.error("Native prompt failed", e2);
+                alert("Notifications must be enabled in your browser settings.");
+            }
         } finally {
             // Always close the modal so the user isn't stuck
             setShow(false);

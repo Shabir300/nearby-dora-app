@@ -29,26 +29,43 @@ const App: React.FC = () => {
 
   const LOGO_URL = "https://crm.pcirealestate.site/wp-content/uploads/2026/01/Logo-DTQ-app.png";
 
+  // Helper to calculate distance
+  const getDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+    const R = 6371e3; // metres
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) *
+      Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
   useEffect(() => {
     // geolocation init (Live Tracking)
     if (navigator.geolocation) {
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
-          // Only update if moved significantly to avoid re-renders (optional optimization, but simple set is fine for now)
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            accuracy: position.coords.accuracy
+          const newLat = position.coords.latitude;
+          const newLng = position.coords.longitude;
+
+          setUserLocation(prev => {
+            if (!prev) {
+              return { lat: newLat, lng: newLng, accuracy: position.coords.accuracy };
+            }
+            // Only update if moved more than 50 meters to prevent infinite re-renders/fetching
+            const dist = getDistance(prev.lat, prev.lng, newLat, newLng);
+            if (dist > 50) {
+              return { lat: newLat, lng: newLng, accuracy: position.coords.accuracy };
+            }
+            return prev;
           });
         },
         (error) => {
           console.error("Location error:", error);
-          // If detailed error handling needed, can add toast here
-          // Fallback only if no location ever found? 
-          // Better to keep existing if available, or set default only on init failure.
-          if (!userLocation) {
-            setUserLocation({ lat: 33.6844, lng: 73.0479 });
-          }
+          setUserLocation(prev => prev || { lat: 33.6844, lng: 73.0479 });
         },
         {
           enableHighAccuracy: true,
@@ -60,8 +77,6 @@ const App: React.FC = () => {
       return () => navigator.geolocation.clearWatch(watchId);
     }
 
-    // OneSignal init
-    initOneSignal();
     // OneSignal init
     initOneSignal();
   }, []);

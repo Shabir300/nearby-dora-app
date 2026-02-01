@@ -158,14 +158,22 @@ export const Map: React.FC<MapProps> = ({ programs, userLocation, selectedProgra
               onClick={() => onMarkerClick(program)}
               zIndex={isActive ? 10 : 1}
             >
-              <div className="relative flex flex-col items-center group">
-                <div className={`w-10 h-10 ${isActive ? 'bg-[#d4af37] scale-125' : 'bg-[#065f46]'} border-2 border-white rounded-full shadow-2xl flex items-center justify-center text-white transition-all duration-500`}>
-                  <div className="w-5 h-5">
-                    <Icons.Lantern />
+              <div className="relative flex flex-col items-center group cursor-pointer transition-transform duration-300 hover:-translate-y-1">
+                {/* Premium Pin CSS Shape */}
+                <div className={`relative ${isActive ? 'scale-110 drop-shadow-xl' : 'scale-100 drop-shadow-md'} transition-all duration-300`}>
+                  <svg width="40" height="48" viewBox="0 0 384 512" className={`${isActive ? 'fill-[#d4af37]' : 'fill-[#065f46]'} stroke-white stroke-[15]`}>
+                    <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                  </svg>
+                  {/* Inner Icon */}
+                  <div className="absolute top-[10px] left-1/2 -translate-x-1/2 text-white">
+                    <div className="w-4 h-4"><Icons.Lantern /></div>
                   </div>
                 </div>
-                <div className="w-1 h-3 bg-[#065f46] rounded-full mt-[-2px]"></div>
-                {isActive && <div className="absolute inset-0 bg-[#d4af37] blur-lg opacity-40 animate-pulse rounded-full"></div>}
+
+                {/* Pulse Effect for Active */}
+                {isActive && (
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/30 blur-sm rounded-full"></div>
+                )}
               </div>
             </AdvancedMarker>
           );
