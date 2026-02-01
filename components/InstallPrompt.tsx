@@ -37,17 +37,30 @@ export const InstallPrompt: React.FC = () => {
     const [step, setStep] = useState<'welcome' | 'install' | 'notifications'>('welcome');
 
     useEffect(() => {
-        // Show welcome screen on first visit
-        // const hasVisited = localStorage.getItem('hasVisitedApp_v2');
-        // if (!hasVisited) {
-        // Wait a bit for the app to settle
-        const timer = setTimeout(() => setShow(true), 1500);
-        return () => clearTimeout(timer);
-        // }
+        // 1. Check if user has already onboarded
+        const hasVisited = localStorage.getItem('hasVisitedApp_v3');
+
+        // 2. Check if running in standalone (installed) mode
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+        if (!hasVisited && !isStandalone) {
+            // Wait a bit for the app to settle
+            const timer = setTimeout(() => setShow(true), 1500);
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleAppInstalled = () => {
+            localStorage.setItem('hasVisitedApp_v3', 'true');
+            setShow(false);
+        };
+        window.addEventListener('appinstalled', handleAppInstalled);
+        return () => window.removeEventListener('appinstalled', handleAppInstalled);
     }, []);
 
     const handleStart = () => {
-        localStorage.setItem('hasVisitedApp_v2', 'true');
+        localStorage.setItem('hasVisitedApp_v3', 'true');
         setStep('install');
     };
 
