@@ -1,18 +1,18 @@
-# Nearby Dora Quran (Ramadan 2026) 🌙
+# Nearby Dora Quran (Ramadan 2026)
 
 A location-based progressive web application (PWA) designed to help users find nearby *Dora Quran* programs and religious events during Ramadan. Built for speed, accessibility, and a premium mobile-first experience.
 
-## ✨ Key Features
+## Key Features
 
--   **📍 Live Geolocation**: Instantly finds programs near your current location.
--   **🗺️ Interactive Map**: Powered by Google Maps API with custom markers and clusters.
--   **🕌 Program Details**: Elegant, poster-style details view with time, facilities, and contact info.
--   **🔔 Push Notifications**: Integrated OneSignal for "Alert Me" reminders on specific programs.
--   **🔎 Location Search**: Autocomplete search to find programs in other areas (powered by Google Places).
--   **📱 Installable PWA**: Works offline-first and can be installed on iOS/Android home screens.
--   **🎨 Premium UI**: Deep Green & Gold aesthetic, featuring glassmorphism and smooth animations.
+-   **Live Geolocation**: Instantly finds programs near your current location.
+-   **Interactive Map**: Powered by Google Maps API with custom markers and clusters.
+-   **Program Details**: Elegant, poster-style details view with time, facilities, and contact info.
+-   **Push Notifications**: Integrated OneSignal for "Alert Me" reminders on specific programs.
+-   **Location Search**: Autocomplete search to find programs in other areas (powered by Google Places).
+-   **Installable PWA**: Works offline-first and can be installed on iOS/Android home screens.
+-   **Premium UI**: Deep Green & Gold aesthetic, featuring glassmorphism and smooth animations.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 -   **Frontend**: React (v19), TypeScript, Vite
 -   **Styling**: Tailwind CSS, PostCSS
@@ -21,7 +21,7 @@ A location-based progressive web application (PWA) designed to help users find n
 -   **Notifications**: OneSignal SDK
 -   **PWA**: `vite-plugin-pwa` (Workbox)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -57,7 +57,7 @@ A location-based progressive web application (PWA) designed to help users find n
     npm run dev
     ```
 
-## 📦 Build & Deploy
+## Build & Deploy
 
 To create a production build:
 
@@ -67,13 +67,13 @@ npm run build
 
 This generates a `dist` folder ready for deployment on platforms like **Vercel**, **Netlify**, or **Cloudflare Pages**.
 
-## 📱 Mobile Optimization
+## Mobile Optimization
 
 The app is fully responsive with specific optimizations for mobile users:
 -   **Bottom sheet** interactions for ease of access.
 -   **Touch-friendly** buttons and hit targets.
 -   **Adaptive layouts** (Stacking on mobile vs Sidebar on Desktop).
 
-## 📄 License
+## License
 
 Proprietary software developed for Tanzeem-e-Islami. All rights reserved.
