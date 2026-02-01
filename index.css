@@ -1,0 +1,51 @@
+/* Google Places Autocomplete Customization */
+.pac-container {
+  background-color: #0f172a !important; /* glass-midnight base */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important; /* rounded-xl */
+  font-family: 'Inter', sans-serif !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important; /* shadow-2xl */
+  margin-top: 8px !important;
+  z-index: 9999 !important; /* Ensure it stays on top */
+  backdrop-filter: blur(12px) !important;
+}
+
+.pac-item {
+  color: #cbd5e1 !important; /* slate-300 */
+  padding: 12px 16px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important; /* text-sm */
+}
+
+.pac-item:first-child {
+  border-top: none !important;
+}
+
+.pac-item:hover {
+  background-color: rgba(6, 95, 70, 0.2) !important; /* emerald/20 */
+}
+
+.pac-item-selected {
+  background-color: rgba(6, 95, 70, 0.2) !important;
+}
+
+.pac-item-query {
+  color: #fdfcf6 !important; /* warm-beige/white */
+  font-weight: 600 !important;
+}
+
+.pac-matched {
+  color: #d4af37 !important; /* gold */
+}
+
+.pac-icon {
+  margin-top: 2px !important;
+  filter: invert(1) brightness(2) opacity(0.7) !important; /* Make icons white/brighter */
+}
+
+/* Hide the "powered by Google" if possible/allowed or style it to be subtle */
+.pac-logo::after {
+  filter: invert(1) opacity(0.5) !important;
+  margin: 8px !important;
+}

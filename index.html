@@ -1,54 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NearbyPrograms - Ramadan Discovery</title>
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --color-gold: #d4af37;
-        --color-emerald: #065f46;
-        --color-midnight: #0f172a;
-        --color-warm-beige: #fdfcf6;
-      }
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--color-warm-beige);
-        color: var(--color-midnight);
-      }
-      .leaflet-container {
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: #e5e7eb;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 5px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #d1d5db;
-        border-radius: 10px;
-      }
-      .glass-midnight {
-        background: rgba(15, 23, 42, 0.85);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-      }
-      .islamic-pattern {
-        background-image: radial-gradient(var(--color-gold) 0.5px, transparent 0.5px);
-        background-size: 24px 24px;
-        opacity: 0.1;
-      }
-    </style>
-    <script type="importmap">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NearbyPrograms - Ramadan Discovery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-gold: #d4af37;
+      --color-emerald: #065f46;
+      --color-midnight: #0f172a;
+      --color-warm-beige: #fdfcf6;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-warm-beige);
+      color: var(--color-midnight);
+    }
+
+    .leaflet-container {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: #e5e7eb;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 10px;
+    }
+
+    .glass-midnight {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .islamic-pattern {
+      background-image: radial-gradient(var(--color-gold) 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      opacity: 0.1;
+    }
+  </style>
+  <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@19.0.0",
@@ -63,8 +69,10 @@
 </script>
   <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
