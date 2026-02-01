@@ -8,6 +8,7 @@ import { ProgramCard } from './components/ProgramCard';
 import { ProgramDetail } from './components/ProgramDetail';
 import { InstallPrompt } from './components/InstallPrompt';
 import { LocationSearch } from './components/LocationSearch';
+import { DebugInfo } from './components/DebugInfo';
 import { supabase } from './services/supabase';
 // import { initOneSignal } from './services/notifications';
 
@@ -291,6 +292,7 @@ const App: React.FC = () => {
 
         {/* Onboarding & Install Prompt */}
         <InstallPrompt />
+        <DebugInfo />
       </div>
     </APIProvider >
   );
