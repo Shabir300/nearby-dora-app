@@ -8,6 +8,19 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+# Add build arguments ( Dokploy/Docker passes these if defined in build settings)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ARG VITE_GOOGLE_MAPS_API_KEY
+ARG VITE_ONESIGNAL_APP_ID
+
+# Set them as environment variables so Vite can see them during build
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+ENV VITE_GOOGLE_MAPS_API_KEY=$VITE_GOOGLE_MAPS_API_KEY
+ENV VITE_ONESIGNAL_APP_ID=$VITE_ONESIGNAL_APP_ID
+
 RUN npm run build
 
 # Stage 2: Serve with Nginx
