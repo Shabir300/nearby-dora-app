@@ -22,9 +22,9 @@ export default defineConfig(({ mode }) => {
           },
           includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
           manifest: {
-            name: 'Nearby Dora Quran',
+            name: 'Nearby Dora Quran - Ramadan 2026',
             short_name: 'Dora Quran',
-            description: 'Find nearby Dora Quran programs and events.',
+            description: 'Find nearby Dora Quran programs and events in Rawalpindi and Islamabad. Join us for spiritual growth in Ramadan 2026.',
             start_url: '/',
             scope: '/',
             theme_color: '#065f46',
