@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@supabase/supabase-js": "^2.93.3",
     "@vis.gl/react-google-maps": "^1.7.1",
     "react": "^19.2.3",
