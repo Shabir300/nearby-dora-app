@@ -94,22 +94,19 @@ const RegistrationForm = ({ program }: { program: Program }) => {
     }
 
     setIsSubmitting(true);
-    const neon_db_url =
-      "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
-    const ADMIN_PHONE = "923005585435";
-    const N8N_WEBHOOK_URL =
-      "https://n8n.premierchoiceint.online/webhook/registration-trigger";
-    const GOOGLE_SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbzXNQV7EreIbUiIMxuJQrDri_2BTehFLlauhpFGcVefP0I2Vnf8PyJYr5VdsXaztXlx/exec";
+    const neon_db_url = "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+    const ADMIN_PHONE = formatPhone(program.contact);
+    const N8N_WEBHOOK_URL = "https://n8n.premierchoiceint.online/webhook/registration-trigger";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXNQV7EreIbUiIMxuJQrDri_2BTehFLlauhpFGcVefP0I2Vnf8PyJYr5VdsXaztXlx/exec";
 
     try {
       const sql = neon(neon_db_url);
       const timestamp = new Date().toISOString();
-      const location = program.venue || "Kashmir Plaza";
+      const location = program.venue || "";
       const formattedMobile = formatPhone(formData.mobile);
 
       // 1. Create Table (Idempotent)
-      await sql`CREATE TABLE IF NOT EXISTS "registration-kashmir-plaza" (
+      await sql`CREATE TABLE IF NOT EXISTS "registration-${program.venue}" (
         id SERIAL PRIMARY KEY,
         timestamp TEXT,
         location TEXT,
@@ -122,7 +119,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
       )`;
 
       // 2. Insert Data
-      await sql`INSERT INTO "registration-kashmir-plaza" (timestamp, location, read, want, name, mobile, age, profession)
+      await sql`INSERT INTO "registration-${program.venue}" (timestamp, location, read, want, name, mobile, age, profession)
         VALUES (${timestamp}, ${location}, ${formData.read}, ${formData.want}, ${formData.name}, ${formattedMobile}, ${formData.age}, ${formData.profession})`;
 
       // 3. Fire n8n webhook
@@ -190,7 +187,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
               <p className="question-sub urdu">
                 کیا آپ نے کبھی پورا قرآن ترجمہ کے ساتھ پڑھا ہے؟
               </p>
-              <button
+                <button
                 type="button"
                 className={`btn-option ${formData.read === "Yes" ? "selected" : ""}`}
                 onClick={() => handleOptionSelect(1, "Yes")}
