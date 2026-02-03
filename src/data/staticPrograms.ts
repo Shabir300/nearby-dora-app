@@ -535,9 +535,9 @@ export const STATIC_PROGRAMS: Program[] = [
     name: "Saeed Colony No. 2",
     venue: "Quran Academy",
     address: "Saeed Colony No. 2, Faisalabad",
-    location: { lat: 31.4326, lng: 73.1118 },
+    location: { lat: 31.43076, lng: 73.1324583 },
     contact: "+923339837986",
-    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg98",
+    googleMapsLink: "https://maps.app.goo.gl/V3a4qqMtYdiV9qto7",
     timing: "08:00 PM",
     category: "Religious",
     organizer: "Dora Quran Team"
@@ -547,9 +547,9 @@ export const STATIC_PROGRAMS: Program[] = [
     name: "Samanabad",
     venue: "Al-Madina Marquee",
     address: "Al-Madina Marquee / Marriage Hall, Samanabad, Faisalabad",
-    location: { lat: 31.3985, lng: 73.0673 },
+    location: { lat: 31.3907339, lng: 73.117811 },
     contact: "+923217200799",
-    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg99",
+    googleMapsLink: "https://maps.app.goo.gl/s4bW83WWSWwJ9GJD7",
     timing: "08:00 PM",
     category: "Religious",
     organizer: "Dora Quran Team"
