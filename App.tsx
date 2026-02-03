@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { Program, UserLocation } from './types';
-import { Icons, CATEGORIES } from './constants';
+import { Icons, CATEGORIES, CITIES } from './constants';
 import { Map as GoogleMap } from './components/Map';
 import { ProgramCard } from './components/ProgramCard';
 import { ProgramDetail } from './components/ProgramDetail';
@@ -196,6 +196,41 @@ const App: React.FC = () => {
 
             <div className="mb-3 px-1">
               <LocationSearch onLocationSelect={handleLocationSelect} />
+            </div>
+
+            {/* City/Area Horizontal Filter */}
+            <div className="flex gap-2 overflow-x-auto pb-2 px-1 custom-scroll snap-x">
+              <button
+                onClick={() => {
+                  setSearchCenter(null);
+                  setSearchAddress(''); // Reset to "Current Location"
+                }}
+                className={`snap-center flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all border ${!searchCenter
+                  ? 'bg-[#0f172a] text-white border-[#0f172a] shadow-md'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-[#0f172a]'
+                  }`}
+              >
+                <div className="flex items-center gap-1">
+                  <Icons.Crosshairs />
+                  Current Location
+                </div>
+              </button>
+
+              {CITIES.map((city) => (
+                <button
+                  key={city.name}
+                  onClick={() => {
+                    setSearchCenter({ lat: city.lat, lng: city.lng, accuracy: 0 });
+                    setSearchAddress(city.name);
+                  }}
+                  className={`snap-center flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all border ${searchAddress === city.name
+                    ? 'bg-[#0f172a] text-white border-[#0f172a] shadow-md'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-[#0f172a]'
+                    }`}
+                >
+                  {city.name}
+                </button>
+              ))}
             </div>
 
           </div>

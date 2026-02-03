@@ -3,6 +3,16 @@ import React from 'react';
 
 export const CATEGORIES = ['All', 'Religious', 'Community', 'Iftar', 'Taraweeh', 'Charity'];
 
+export const CITIES = [
+  { name: 'Rawalpindi', lat: 33.5651, lng: 73.0169 },
+  { name: 'Islamabad', lat: 33.6844, lng: 73.0479 },
+  { name: 'Multan', lat: 30.1575, lng: 71.5249 },
+  { name: 'Wah Cantt', lat: 33.7715, lng: 72.7511 },
+  { name: 'Murree', lat: 33.9070, lng: 73.3943 },
+  { name: 'Kot Addu', lat: 30.4761, lng: 70.9644 },
+  { name: 'Abbottabad', lat: 34.1688, lng: 73.2215 },
+];
+
 // Using High-Quality Solid/Filled Icons (Heroicons Solid Style) for a more mature/premium feel
 export const Icons = {
   // A clean, solid lantern/lamp symbol
