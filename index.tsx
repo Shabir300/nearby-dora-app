@@ -8,9 +8,12 @@ import { registerSW } from 'virtual:pwa-register';
 // Register Service Worker
 const updateSW = registerSW({
   onNeedRefresh() {
-    if (confirm('New content available. Reload?')) {
-      updateSW(true);
-    }
+    // Automatically update without prompting
+    console.log("New content available, auto-updating...");
+    updateSW(true);
+  },
+  onOfflineReady() {
+    console.log("App is ready for offline usage.");
   },
 });
 
