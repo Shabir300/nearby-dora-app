@@ -7,6 +7,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Custom Scrollbar Hiding Utility */
+.custom-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scroll {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 /* Google Places Autocomplete Customization */
 .pac-container {
   background-color: #0f172a !important;
