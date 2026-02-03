@@ -41,9 +41,9 @@ export const STATIC_PROGRAMS: Program[] = [
   {
     id: "4",
     name: "Morgah",
-    venue: "The Venue Marquee",
-    address: "Kotha Kalan, Morgah, Rawalpindi",
-    location: { lat: 33.5492, lng: 73.0655 },
+    venue: "Venue Marquee",
+    address: "H33M+V77, Kotha Kalan Morgah, Rawalpindi, 44000, Pakistan",
+    location: { lat: 33.5519178, lng: 73.069171 },
     contact: "+923215159579",
     googleMapsLink: "https://maps.app.goo.gl/qGscXQyXbwj1MQ7y7",
     timing: "08:00 PM",
@@ -235,9 +235,9 @@ export const STATIC_PROGRAMS: Program[] = [
     name: "Model Town Humak",
     venue: "Chaudhry Marriage Hall",
     address: "Nai Abadi, Model Town Humak",
-    location: { lat: 33.6511478, lng: 72.9772924 },
+    location: { lat: 33.5255, lng: 73.1655 }, // Approximate Model Town Humak center to fix overlap
     contact: "+923139856449",
-    googleMapsLink: "https://maps.app.goo.gl/gwh42zVFv6YYK4tT8",
+    googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Chaudhry+Marriage+Hall+Model+Town+Humak",
     timing: "08:00 PM",
     category: "Religious",
     organizer: "Dora Quran Team"
