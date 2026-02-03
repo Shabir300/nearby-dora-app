@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { Program, UserLocation } from './types';
 import { Icons, CATEGORIES } from './constants';
@@ -8,9 +8,7 @@ import { ProgramCard } from './components/ProgramCard';
 import { ProgramDetail } from './components/ProgramDetail';
 import { InstallPrompt } from './components/InstallPrompt';
 import { LocationSearch } from './components/LocationSearch';
-import { DebugInfo } from './components/DebugInfo';
 import { supabase } from './services/supabase';
-// import { initOneSignal } from './services/notifications';
 
 const App: React.FC = () => {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
@@ -47,6 +45,21 @@ const App: React.FC = () => {
   useEffect(() => {
     // geolocation init (Live Tracking)
     if (navigator.geolocation) {
+      // Quick initial fetch
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          });
+        },
+        (error) => {
+          console.warn("Initial location fetch failed, using fallback/waiting for watch.", error);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
           const newLat = position.coords.latitude;
@@ -56,29 +69,31 @@ const App: React.FC = () => {
             if (!prev) {
               return { lat: newLat, lng: newLng, accuracy: position.coords.accuracy };
             }
-            // Only update if moved more than 50 meters to prevent infinite re-renders/fetching
+            // Only update if moved more than 30 meters (reduced from 50) to be more responsive but prevent jitter
             const dist = getDistance(prev.lat, prev.lng, newLat, newLng);
-            if (dist > 50) {
+            if (dist > 30) {
               return { lat: newLat, lng: newLng, accuracy: position.coords.accuracy };
             }
             return prev;
           });
         },
         (error) => {
-          console.error("Location error:", error);
-          setUserLocation(prev => prev || { lat: 33.6844, lng: 73.0479 });
+          console.error("Location watch error:", error);
+          // Do not forcefully reset to default if we already had a location, just log error
+          if (!userLocation) {
+            // Only use fallback if we strictly have no location yet
+            // setUserLocation({ lat: 33.6844, lng: 73.0479 }); 
+          }
         },
         {
           enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 5000
+          timeout: 20000, // Increased timeout 
+          maximumAge: 1000 // Accept slightly older cached positions for speed
         }
       );
 
       return () => navigator.geolocation.clearWatch(watchId);
     }
-
-    // OneSignal init removed for Native Push
   }, []);
 
   const handleLocationSelect = useCallback((location: { lat: number; lng: number, address: string }) => {
@@ -133,6 +148,32 @@ const App: React.FC = () => {
     setIsListView(false);
   }, []);
 
+
+  // --- Swipe Logic ---
+  const touchStartY = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartY.current - touchEndY;
+
+    // Swipe Up (Open)
+    if (diffY > 50) {
+      setIsListView(true);
+    }
+    // Swipe Down (Close)
+    else if (diffY < -50) {
+      setIsListView(false);
+    }
+
+    touchStartY.current = null;
+  };
+
   return (
     <APIProvider apiKey={API_KEY}>
       <div className="relative h-screen w-full bg-[#fdfcf6] flex flex-col md:flex-row overflow-hidden">
@@ -156,8 +197,6 @@ const App: React.FC = () => {
             <div className="mb-3 px-1">
               <LocationSearch onLocationSelect={handleLocationSelect} />
             </div>
-
-
 
           </div>
 
@@ -230,8 +269,12 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Sheet for Mobile Discovery */}
-        <div className={`fixed inset-x-0 bottom-0 z-[1002] bg-[#fdfcf6] rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(15,23,42,0.2)] transition-all duration-500 md:hidden ${isListView ? 'translate-y-0 h-[82%]' : 'translate-y-[calc(100%-90px)] h-[82%]'}`}>
+        {/* Bottom Sheet for Mobile Discovery - WITH SWIPE */}
+        <div
+          className={`fixed inset-x-0 bottom-0 z-[1002] bg-[#fdfcf6] rounded-t-2xl shadow-[0_-10px_40px_-15px_rgba(15,23,42,0.2)] transition-all duration-500 md:hidden touch-none ${isListView ? 'translate-y-0 h-[82%]' : 'translate-y-[calc(100%-90px)] h-[82%]'}`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className="w-16 h-1.5 bg-slate-200 rounded-full mx-auto my-6 cursor-pointer hover:bg-[#d4af37] transition-colors"
             onClick={() => setIsListView(!isListView)}
@@ -247,7 +290,13 @@ const App: React.FC = () => {
                 <span className="text-[10px] font-black text-[#d4af37] uppercase tracking-widest">Discover Programs</span>
               </div>
             </div>
-            <div className="overflow-y-auto h-[calc(100vh*0.82-160px)] space-y-4 pb-24 custom-scroll">
+
+            {/* Scrollable Content inside Sheet - Stop propagation so swipe doesn't conflict with scroll if needed, though simple setup usually fine */}
+            <div
+              className="overflow-y-auto h-[calc(100vh*0.82-160px)] space-y-4 pb-24 custom-scroll"
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
+            >
               {loading ? (
                 <div className="space-y-4 animate-pulse">
                   {[1, 2, 3].map(i => (
@@ -292,7 +341,6 @@ const App: React.FC = () => {
 
         {/* Onboarding & Install Prompt */}
         <InstallPrompt />
-        <DebugInfo />
       </div>
     </APIProvider >
   );
