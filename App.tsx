@@ -21,7 +21,7 @@ const App: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [isListView, setIsListView] = useState(false);
-  const [radiusKm, setRadiusKm] = useState(1000); // Increased to 1000km to show country-wide events by default
+  const [radiusKm, setRadiusKm] = useState(15);
   const [showFilters, setShowFilters] = useState(false);
 
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
