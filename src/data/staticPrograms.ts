@@ -517,5 +517,65 @@ export const STATIC_PROGRAMS: Program[] = [
     timing: "08:00 PM",
     category: "Religious",
     organizer: "Dora Quran Team"
+  },
+  {
+    id: "44",
+    name: "Millat Chowk",
+    venue: "Gulistan Marriage Hall",
+    address: "near Ideal Sweet, Millat Chowk, Faisalabad",
+    location: { lat: 31.4441, lng: 73.0958 },
+    contact: "+923339925303",
+    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg97",
+    timing: "08:00 PM",
+    category: "Religious",
+    organizer: "Dora Quran Team"
+  },
+  {
+    id: "45",
+    name: "Saeed Colony No. 2",
+    venue: "Quran Academy",
+    address: "Saeed Colony No. 2, Faisalabad",
+    location: { lat: 31.4326, lng: 73.1118 },
+    contact: "+923339837986",
+    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg98",
+    timing: "08:00 PM",
+    category: "Religious",
+    organizer: "Dora Quran Team"
+  },
+  {
+    id: "46",
+    name: "Samanabad",
+    venue: "Al-Madina Marquee",
+    address: "Al-Madina Marquee / Marriage Hall, Samanabad, Faisalabad",
+    location: { lat: 31.3985, lng: 73.0673 },
+    contact: "+923217200799",
+    googleMapsLink: "https://maps.app.goo.gl/sQvzhCtkdBKK3jDg99",
+    timing: "08:00 PM",
+    category: "Religious",
+    organizer: "Dora Quran Team"
+  },
+  {
+    id: "47",
+    name: "Islamia Park",
+    venue: "Jamia Masjid Usmania",
+    address: "Islamia Park, Faisalabad",
+    location: { lat: 31.4662, lng: 73.2374 },
+    contact: "+923007604477",
+    googleMapsLink: "https://maps.google.com/?q=31.4662,73.2374",
+    timing: "08:00 PM",
+    category: "Religious",
+    organizer: "Dora Quran Team"
+  },
+  {
+    id: "48",
+    name: "Mansoor Abad",
+    venue: "Jamia Masjid Rahman",
+    address: "Jhumra Road, Mansoor Abad, Faisalabad",
+    location: { lat: 31.4367791, lng: 73.1127591 },
+    contact: "+923007997862",
+    googleMapsLink: "https://maps.app.goo.gl/8Lp2pH2igZiD8TSd7?g_st=aw",
+    timing: "08:00 PM",
+    category: "Religious",
+    organizer: "Dora Quran Team"
   }
 ];

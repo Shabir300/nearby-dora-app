@@ -7,6 +7,7 @@ export const CITIES = [
   { name: 'Rawalpindi', lat: 33.5651, lng: 73.0169 },
   { name: 'Islamabad', lat: 33.6844, lng: 73.0479 },
   { name: 'Multan', lat: 30.1575, lng: 71.5249 },
+  { name: 'Faisalabad', lat: 31.4187, lng: 73.0791 },
   { name: 'Wah Cantt', lat: 33.7715, lng: 72.7511 },
   { name: 'Murree', lat: 33.9070, lng: 73.3943 },
   { name: 'Kot Addu', lat: 30.4761, lng: 70.9644 },

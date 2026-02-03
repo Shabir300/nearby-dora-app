@@ -34,4 +34,9 @@ VALUES
 ('G-11/2', 'Jamia Masjid Al-Huda', 'Street No. 39, Sector G-11/2', 33.6688397, 72.9891289, '+923321311222', 'https://maps.app.goo.gl/5RoZ5ouyAfQKrhai7', '08:00 PM', 'Religious', 'Dora Quran Team'),
 ('Lehtrar Road', 'Ghulam Rabbani Qureshi Welfare Trust', 'and Kidney Center', 33.5875152, 73.3839848, '+923005018029', 'https://maps.app.goo.gl/34MnsZPZU6HESjLL6', '08:00 PM', 'Religious', 'Dora Quran Team'),
 ('Murree', 'Masjid Sirat-ul-Jannah', 'Company Bagh, Murree', 33.6329664, 73.1243615, '+923455992634', 'https://maps.app.goo.gl/C1iAdftKRQLiFkrw8', '08:00 PM', 'Religious', 'Dora Quran Team'),
-('Mansehra Road', 'Madani Jamia Masjid', 'Irrigation Jab Pul (Bridge), Mansehra Road', 34.1838125, 73.2306875, '+923335057120', 'https://maps.app.goo.gl/YrcbFWNBBzrvRhKj9', '08:00 PM', 'Religious', 'Dora Quran Team');
+('Mansehra Road', 'Madani Jamia Masjid', 'Irrigation Jab Pul (Bridge), Mansehra Road', 34.1838125, 73.2306875, '+923335057120', 'https://maps.app.goo.gl/YrcbFWNBBzrvRhKj9', '08:00 PM', 'Religious', 'Dora Quran Team'),
+('Millat Chowk', 'Gulistan Marriage Hall', 'near Ideal Sweet, Millat Chowk, Faisalabad', 31.4441, 73.0958, '+923339925303', 'https://maps.app.goo.gl/sQvzhCtkdBKK3jDg97', '08:00 PM', 'Religious', 'Dora Quran Team'),
+('Saeed Colony No. 2', 'Quran Academy', 'Saeed Colony No. 2, Faisalabad', 31.4326, 73.1118, '+923339837986', 'https://maps.app.goo.gl/sQvzhCtkdBKK3jDg98', '08:00 PM', 'Religious', 'Dora Quran Team'),
+('Samanabad', 'Al-Madina Marquee', 'Al-Madina Marquee / Marriage Hall, Samanabad, Faisalabad', 31.3985, 73.0673, '+923217200799', 'https://maps.app.goo.gl/sQvzhCtkdBKK3jDg99', '08:00 PM', 'Religious', 'Dora Quran Team'),
+('Islamia Park', 'Jamia Masjid Usmania', 'Islamia Park, Faisalabad', 31.4662, 73.2374, '+923007604477', 'https://maps.google.com/?q=31.4662,73.2374', '08:00 PM', 'Religious', 'Dora Quran Team'),
+('Mansoor Abad', 'Jamia Masjid Rahman', 'Jhumra Road, Mansoor Abad, Faisalabad', 31.4367791, 73.1127591, '+923007997862', 'https://maps.app.goo.gl/8Lp2pH2igZiD8TSd7?g_st=aw', '08:00 PM', 'Religious', 'Dora Quran Team');
