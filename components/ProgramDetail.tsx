@@ -375,6 +375,49 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   );
   const whatsappLink = `https://wa.me/${program.contact?.replace(/\D/g, "")}?text=${whatsappMessage}`;
 
+
+  async function handleNotifications() {
+    try {
+      
+      const mobile = prompt(
+        "Do you want WhatsApp reminders too? Enter your number (e.g., 03001234567):",
+      );
+      if (mobile) {
+        try {
+          const formattedMobile = mobile.replace(/\D/g, "");
+          const finalMobile = formattedMobile.startsWith(
+            "92",
+          )
+            ? formattedMobile
+            : "92" + formattedMobile.replace(/^0/, "");
+
+          await fetch(
+            "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                
+              },
+              body: JSON.stringify({
+                phone: finalMobile,
+                venue: program.venue,
+                name: program.name,
+              }),
+            },
+          );
+          // alert("WhatsApp reminders enabled!"); // Optional: Let them know
+        } catch (err) {
+          console.error("WhatsApp sub failed", err);
+        }
+      }
+    } catch (e) {
+      console.error("Welcome Push Error:", e);
+      // Still success for the user as DB save worked
+      alert(`✅ Notifications enabled!`);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-[2000] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4 animate-in fade-in duration-500 ease-out">
       {/* Click outside to close */}
@@ -477,62 +520,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
             <div className="flex gap-2">
               <button
-                onClick={() => {
-                  import("../services/push-service").then(
-                    async ({ subscribeToPush }) => {
-                      const subscription = await subscribeToPush();
-                      if (subscription) {
-                        try {
-                          // const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-                          // const anonKey = import.meta.env
-                          //   .VITE_SUPABASE_ANON_KEY;
-
-                          // n8n workflow
-                          const mobile = prompt(
-                            "Do you want WhatsApp reminders too? Enter your number (e.g., 03001234567):",
-                          );
-                          if (mobile) {
-                            try {
-                              const formattedMobile = mobile.replace(/\D/g, "");
-                              const finalMobile = formattedMobile.startsWith(
-                                "92",
-                              )
-                                ? formattedMobile
-                                : "92" + formattedMobile.replace(/^0/, "");
-
-                              await fetch(
-                                "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
-                                {
-                                  method: "POST",
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                    
-                                  },
-                                  body: JSON.stringify({
-                                    phone: finalMobile,
-                                    venue: program.venue,
-                                    name: "PushSubscriber",
-                                  }),
-                                },
-                              );
-                              // alert("WhatsApp reminders enabled!"); // Optional: Let them know
-                            } catch (err) {
-                              console.error("WhatsApp sub failed", err);
-                            }
-                          }
-                        } catch (e) {
-                          console.error("Welcome Push Error:", e);
-                          // Still success for the user as DB save worked
-                          alert(`✅ Notifications enabled!`);
-                        }
-                      } else {
-                        alert(
-                          "⚠️ Could not enable notifications. Please check site permissions.",
-                        );
-                      }
-                    },
-                  );
-                }}
+                onClick={handleNotifications}
                 className="flex-1 bg-[#eab308] hover:bg-[#ca9a04] text-white font-bold py-3 md:py-3.5 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm md:text-base transition-transform active:scale-95"
               >
                 <Icons.Bell /> Alert Me
