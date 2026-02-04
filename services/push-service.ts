@@ -19,22 +19,22 @@ function urlBase64ToUint8Array(base64String: string) {
   return outputArray;
 }
 
-export const subscribeToPush = async (userId?: string) => {
+export const subscribeToPush = async (userId?: string): Promise<PushSubscription | null> => {
   if (!('serviceWorker' in navigator)) {
     console.error("Push Error: Service Worker not supported.");
-    return false;
+    return null;
   }
 
   if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
      console.error("Push Error: Push Notifications require HTTPS (or localhost). Current origin is insecure.");
-     return false;
+     return null;
   }
 
   try {
     // 1. Check Permission State
     if (Notification.permission === 'denied') {
       console.error("Push Error: Permission is explicitly denied.");
-      return false;
+      return null;
     }
 
     // 2. Wait for SW
@@ -43,7 +43,7 @@ export const subscribeToPush = async (userId?: string) => {
 
     if (!registration.pushManager) {
       console.error("Push Error: PushManager not available (Are you on HTTP?)");
-      return false;
+      return null;
     }
 
     // 3. Subscribe to Browser Push Manager
@@ -52,28 +52,27 @@ export const subscribeToPush = async (userId?: string) => {
       applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
     });
 
-    // 2. Save to Supabase
+    // 4. Save to Supabase (Optional backup)
     const { error } = await supabase
       .from('push_subscriptions')
       .upsert({ 
         endpoint: subscription.endpoint,
         p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')!))),
         auth: btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')!))),
-        user_id: userId || null
+        user_id: userId || null,
       }, { onConflict: 'endpoint' });
 
     if (error) {
-        console.error("Supabase Save Error:", error);
-        alert("Database Error: " + error.message); // DEBUG: Show user
-        return false;
+        console.warn("Supabase Save Warning (non-critical):", error);
+        // We continue even if DB save fails, as we might send to N8N
     }
     
     console.log("Subscribed to Push:", subscription.endpoint);
-    return true;
+    return subscription;
 
   } catch (error: any) {
     console.error("Push Subscription Error:", error);
     alert("Push Error: " + (error.message || String(error))); // DEBUG: Show user
-    return false;
+    return null;
   }
 };

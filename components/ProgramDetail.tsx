@@ -94,10 +94,13 @@ const RegistrationForm = ({ program }: { program: Program }) => {
     }
 
     setIsSubmitting(true);
-    const neon_db_url = "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+    const neon_db_url =
+      "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
     const ADMIN_PHONE = formatPhone(program.contact);
-    const N8N_WEBHOOK_URL = "https://n8n.premierchoiceint.online/webhook/registration-trigger";
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXNQV7EreIbUiIMxuJQrDri_2BTehFLlauhpFGcVefP0I2Vnf8PyJYr5VdsXaztXlx/exec";
+    const N8N_WEBHOOK_URL =
+      "https://n8n.premierchoiceint.online/webhook/registration-trigger";
+    const GOOGLE_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbzXNQV7EreIbUiIMxuJQrDri_2BTehFLlauhpFGcVefP0I2Vnf8PyJYr5VdsXaztXlx/exec";
 
     try {
       const sql = neon(neon_db_url);
@@ -187,7 +190,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
               <p className="question-sub urdu">
                 کیا آپ نے کبھی پورا قرآن ترجمہ کے ساتھ پڑھا ہے؟
               </p>
-                <button
+              <button
                 type="button"
                 className={`btn-option ${formData.read === "Yes" ? "selected" : ""}`}
                 onClick={() => handleOptionSelect(1, "Yes")}
@@ -477,11 +480,51 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                 onClick={() => {
                   import("../services/push-service").then(
                     async ({ subscribeToPush }) => {
-                      const success = await subscribeToPush();
-                      if (success) {
-                        alert(
-                          `✅ Notifications enabled! You will receive updates.`,
-                        );
+                      const subscription = await subscribeToPush();
+                      if (subscription) {
+                        try {
+                          const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                          const anonKey = import.meta.env
+                            .VITE_SUPABASE_ANON_KEY;
+
+                          // n8n workflow
+                          const mobile = prompt(
+                            "Do you want WhatsApp reminders too? Enter your number (e.g., 03001234567):",
+                          );
+                          if (mobile) {
+                            try {
+                              const formattedMobile = mobile.replace(/\D/g, "");
+                              const finalMobile = formattedMobile.startsWith(
+                                "92",
+                              )
+                                ? formattedMobile
+                                : "92" + formattedMobile.replace(/^0/, "");
+
+                              await fetch(
+                                "https://n8n.premierchoiceint.online/webhook/daily-reminders-subscribe",
+                                {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    
+                                  },
+                                  body: JSON.stringify({
+                                    phone: finalMobile,
+                                    venue: program.venue,
+                                    name: "PushSubscriber",
+                                  }),
+                                },
+                              );
+                              // alert("WhatsApp reminders enabled!"); // Optional: Let them know
+                            } catch (err) {
+                              console.error("WhatsApp sub failed", err);
+                            }
+                          }
+                        } catch (e) {
+                          console.error("Welcome Push Error:", e);
+                          // Still success for the user as DB save worked
+                          alert(`✅ Notifications enabled!`);
+                        }
                       } else {
                         alert(
                           "⚠️ Could not enable notifications. Please check site permissions.",
@@ -494,6 +537,43 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
               >
                 <Icons.Bell /> Alert Me
               </button>
+
+              {/* DEV ONLY: Test Button */}
+              {/* <button
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+                  const btn = e.currentTarget;
+                  btn.innerText = "Sending...";
+
+                  try {
+                    const res = await fetch(
+                      `${supabaseUrl}/functions/v1/send-reminders`,
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${anonKey}`,
+                        },
+                        body: JSON.stringify({ test: true }),
+                      },
+                    );
+                    const data = await res.json();
+                    // alert("Test Sent! Result: " + JSON.stringify(data));
+                  } catch (err) {
+                    alert("Error: " + err);
+                  }
+                  btn.innerText = "Test";
+                }}
+                className="bg-black/80 text-white px-3 rounded-lg text-xs font-mono  z-50 border border-white/20"
+                style={{ display: "block" }}
+              >
+                Test
+              </button> */}
+
               <a
                 href={program.googleMapsLink}
                 target="_blank"

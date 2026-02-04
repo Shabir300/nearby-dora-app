@@ -1,7 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import webpush from "https://esm.sh/web-push@3.6.3"
+import webpush from "https://esm.sh/web-push@3.6.3?target=deno"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -9,6 +9,7 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // 0. Handle CORS Preflight - Critical to do this first and catch any errors
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -28,7 +29,7 @@ serve(async (req) => {
     );
 
     // 2. Get Request Body
-    const { title, body, url, schedule_time } = await req.json();
+    const { title, body, url, schedule_time, filter_endpoint } = await req.json();
 
     // 3. Fetch Subscriptions
     const supabase = createClient(
@@ -36,16 +37,39 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { data: subscriptions, error } = await supabase
-      .from('push_subscriptions')
-      .select('*');
+    let query = supabase.from('push_subscriptions').select('*');
+    if (filter_endpoint) {
+        query = query.eq('endpoint', filter_endpoint);
+    }
 
-    if (error) throw error;
+    const { data: subscriptions, error } = await query;
 
-    console.log(`Found ${subscriptions?.length} subscriptions`);
+    if (error) {
+        // Fallback: If 'program_name' or other cols are missing in schema cache (PGRST204), select only core fields
+        if (error.code === 'PGRST204' || error.message?.includes("Could not find the 'program_name'")) {
+             console.warn("Schema mismatch detected, falling back to core fields.");
+             let retryQuery = supabase.from('push_subscriptions').select('id, endpoint, auth, p256dh');
+             if (filter_endpoint) {
+                retryQuery = retryQuery.eq('endpoint', filter_endpoint);
+             }
+             const retrySrc = await retryQuery;
+             if (retrySrc.error) throw retrySrc.error;
+             
+             // Continue with retried data
+             // We need to re-assign to subscriptions, but 'const' prevents it. 
+             // Refactoring to 'let' above is cleaner, but for this snippet:
+             var safeSubscriptions = retrySrc.data;
+        } else {
+             throw error;
+        }
+    } else {
+        var safeSubscriptions = subscriptions;
+    }
+
+    console.log(`Found ${safeSubscriptions?.length} subscriptions (Targeted: ${!!filter_endpoint})`);
 
     // 4. Send Notifications
-    const results = await Promise.allSettled(subscriptions.map(sub => {
+    const results = await Promise.allSettled(safeSubscriptions.map(sub => {
       const pushConfig = {
         endpoint: sub.endpoint,
         keys: {
@@ -73,7 +97,7 @@ serve(async (req) => {
     const successCount = results.filter(r => r.status === 'fulfilled').length;
 
     return new Response(
-      JSON.stringify({ success: true, sent: successCount, total: subscriptions.length }),
+      JSON.stringify({ success: true, sent: successCount, total: safeSubscriptions.length }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error) {
