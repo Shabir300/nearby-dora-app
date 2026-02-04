@@ -174,7 +174,7 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
         <div className="flex flex-col h-full bg-slate-50 relative overflow-hidden">
 
             {/* --- HEADER SECTION --- */}
-            <div className={`bg-[#1a4d2e] pt-6 px-0 transition-all duration-300 z-20 shrink-0 relative flex flex-col ${viewMode === 'month' ? 'pb-4 rounded-b-[2rem]' : 'pb-6 rounded-b-[2rem]'} shadow-xl`}>
+            <div className={`bg-[#064e3b] pt-6 px-0 transition-all duration-300 z-20 shrink-0 relative flex flex-col ${viewMode === 'month' ? 'pb-4 rounded-b-xl' : 'pb-6 rounded-b-xl'} shadow-xl`}>
 
                 {/* Top Row: Title, Location, Hijri */}
                 <div className="px-6 flex justify-between items-start mb-4">
@@ -195,10 +195,10 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                     </div>
 
                     {/* View Toggle */}
-                    <div className="flex bg-[#143a22] rounded-lg p-0.5">
+                    <div className="flex bg-[#053d2e] rounded-xl p-0.5">
                         <button
                             onClick={() => setViewMode('week')}
-                            className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${viewMode === 'week' ? 'bg-white text-[#1a4d2e] shadow-sm' : 'text-white/60 hover:text-white'}`}
+                            className={`px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all ${viewMode === 'week' ? 'bg-white text-[#064e3b] shadow-sm' : 'text-white/60 hover:text-white'}`}
                         >
                             Week
                         </button>
@@ -207,7 +207,7 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                                 setViewMode('month');
                                 setCalendarMonth(selectedDate); // Sync calendar to selected date
                             }}
-                            className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${viewMode === 'month' ? 'bg-white text-[#1a4d2e] shadow-sm' : 'text-white/60 hover:text-white'}`}
+                            className={`px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all ${viewMode === 'month' ? 'bg-white text-[#064e3b] shadow-sm' : 'text-white/60 hover:text-white'}`}
                         >
                             Month
                         </button>
@@ -272,8 +272,8 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                                             setSelectedDate(date);
                                             // wrapper will fetch new data
                                         }}
-                                        className={`w-8 h-8 flex items-center justify-center rounded-full text-xs font-medium transition-all
-                                    ${isSelected ? 'bg-white text-[#1a4d2e] font-bold shadow-md' : 'text-white hover:bg-white/10'}
+                                        className={`w-9 h-9 flex items-center justify-center rounded-xl text-xs font-medium transition-all
+                                    ${isSelected ? 'bg-white text-[#064e3b] font-bold shadow-md' : 'text-white hover:bg-white/10'}
                                     ${isToday && !isSelected ? 'border border-[#a5d6a7] text-[#a5d6a7]' : ''}
                                 `}
                                     >
@@ -302,7 +302,7 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                             // Active State Design (Balanced)
                             if (isNext) {
                                 return (
-                                    <div key={p.key} className="bg-[#1a4d2e] rounded-2xl p-4 shadow-lg shadow-[#1a4d2e]/20 text-white transform scale-[1.02] transition-all relative overflow-hidden group shrink-0">
+                                    <div key={p.key} className="bg-[#064e3b] rounded-xl p-4 shadow-lg shadow-[#064e3b]/20 text-white transform scale-[1.02] transition-all relative overflow-hidden group shrink-0">
                                         {/* Background Decoration */}
                                         <div className="absolute -right-6 -top-6 w-28 h-28 bg-white/10 rounded-full blur-xl group-hover:bg-white/15 transition-colors"></div>
 
@@ -317,9 +317,9 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                                                 </div>
                                             </div>
                                             <div className="text-right flex flex-col items-end">
-                                                <div className="bg-[#4ade80] text-[#064e3b] px-2 py-0.5 rounded text-[10px] font-black uppercase mb-1 inline-block tracking-wider shadow-sm">Next</div>
+                                                <div className="bg-[#d4af37] text-[#0f172a] px-2.5 py-1 rounded-xl text-[10px] font-black uppercase mb-1 inline-block tracking-wider shadow-sm">Next</div>
                                                 <p className="font-bold text-2xl tracking-tight leading-none">{time}</p>
-                                                <p className="text-[10px] font-bold text-[#4ade80] tracking-widest uppercase mt-1">{nextEvent.timeLeft}</p>
+                                                <p className="text-[10px] font-bold text-[#d4af37] tracking-widest uppercase mt-1.5">{nextEvent.timeLeft}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -328,7 +328,7 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
 
                             // Standard State Design (Balanced)
                             return (
-                                <div key={p.key} className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between hover:shadow-md transition-shadow shrink-0">
+                                <div key={p.key} className="bg-white rounded-xl p-4 shadow-sm border border-slate-100 flex items-center justify-between hover:border-slate-200 transition-all shrink-0">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-11 h-11 rounded-xl ${p.iconBg} ${p.iconColor} flex items-center justify-center`}>
                                             <p.icon />
@@ -338,7 +338,7 @@ export const PrayerTimes: React.FC<PrayerTimesProps> = ({ location }) => {
                                             <p className="text-slate-400 text-[10px] font-medium uppercase tracking-wide">{p.sub}</p>
                                         </div>
                                     </div>
-                                    <p className="font-bold text-[#1a4d2e] text-xl tracking-tight">{time}</p>
+                                    <p className="font-bold text-[#064e3b] text-xl tracking-tight">{time}</p>
                                 </div>
                             );
                         })}

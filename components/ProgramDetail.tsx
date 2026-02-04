@@ -16,14 +16,14 @@ const RegistrationForm = ({ program }: { program: Program }) => {
 
   // Styling
   const styles = `
-    @import url('https://fonts.googleapis.com/css2?family=Gulzar:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-    .reg-scope { font-family: 'Plus Jakarta Sans', sans-serif; color: #1e293b; }
+    .reg-scope { font-family: 'DM Sans', sans-serif; color: #0f172a; }
     .reg-scope .urdu { font-family: 'Gulzar', serif; direction: rtl; line-height: 1.6; }
-    .reg-scope .btn-option, .reg-scope .btn-primary { width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 0.9rem; }
-    .reg-scope .btn-option { border: 1px solid #e2e8f0; background: #fff; color: #1e293b; }
-    .reg-scope .btn-option.selected { border-color: #0F5132; background: #f0fdf4; color: #072e1d; }
-    .reg-scope .btn-primary { background: #0F5132; color: white; border: none; margin-top: 8px; }
-    .reg-scope input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 6px; font-size: 0.9rem; }
+    .reg-scope .btn-option, .reg-scope .btn-primary { width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 0.85rem; text-transform: uppercase; tracking: 0.05em; }
+    .reg-scope .btn-option { border: 1px solid #e2e8f0; background: #fff; color: #64748b; }
+    .reg-scope .btn-option.selected { border-color: #064e3b; background: #ecfdf5; color: #064e3b; }
+    .reg-scope .btn-primary { background: #064e3b; color: white; border: none; margin-top: 8px; box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2); }
+    .reg-scope input { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; background: white; }
+    .reg-scope input:focus { border-color: #064e3b; outline: none; ring: 2px; ring-color: #064e3b/10; }
   `;
 
   // Handlers
@@ -53,16 +53,16 @@ const RegistrationForm = ({ program }: { program: Program }) => {
   };
 
   return (
-    <div className="reg-scope w-full bg-slate-50 p-3 rounded-xl border border-slate-100">
+    <div className="reg-scope w-full bg-slate-50/50 p-4 rounded-2xl border border-slate-100">
       <style>{styles}</style>
 
-      {!isSuccess && <div className="flex justify-center gap-1 mb-3">{[1, 2, 3].map(s => <div key={s} className={`h-1 duration-300 rounded-full transition-all ${step === s ? 'w-5 bg-[#0F5132]' : 'w-1 bg-slate-300'}`} />)}</div>}
+      {!isSuccess && <div className="flex justify-center gap-1.5 mb-4">{[1, 2, 3].map(s => <div key={s} className={`h-1.5 duration-300 rounded-full transition-all ${step === s ? 'w-6 bg-[#064e3b]' : 'w-1.5 bg-slate-200'}`} />)}</div>}
 
       {step === 1 && (
         <div className="animate-in fade-in slide-in-from-right-4 text-center">
-          <h3 className="font-bold text-[#0F5132] mb-0.5 text-sm">Have you read Quran w/ Translation?</h3>
-          <p className="text-xs text-slate-500 mb-3 urdu">کیا آپ نے قرآن ترجمہ سے پڑھا ہے؟</p>
-          <div className="flex gap-2">
+          <h3 className="font-bold text-[#064e3b] mb-1 text-sm">Have you read Quran w/ Translation?</h3>
+          <p className="text-xs text-slate-500 mb-4 urdu">کیا آپ نے قرآن ترجمہ سے پڑھا ہے؟</p>
+          <div className="flex gap-3">
             <button className={`btn-option flex-1 ${formData.read === 'Yes' ? 'selected' : ''}`} onClick={() => handleOptionSelect(1, 'Yes')}>Yes</button>
             <button className={`btn-option flex-1 ${formData.read === 'No' ? 'selected' : ''}`} onClick={() => handleOptionSelect(1, 'No')}>No</button>
           </div>
@@ -71,34 +71,34 @@ const RegistrationForm = ({ program }: { program: Program }) => {
 
       {step === 2 && (
         <div className="animate-in fade-in slide-in-from-right-4 text-center">
-          <h3 className="font-bold text-[#0F5132] mb-1 text-sm">Join for Translation?</h3>
-          <p className="text-xs text-slate-500 mb-3 urdu">کیا آپ اس میں شامل ہونا چاہتے ہیں؟</p>
-          <div className="flex gap-2 mb-2">
+          <h3 className="font-bold text-[#064e3b] mb-1 text-sm">Join for Translation?</h3>
+          <p className="text-xs text-slate-500 mb-4 urdu">کیا آپ اس میں شامل ہونا چاہتے ہیں؟</p>
+          <div className="flex gap-3 mb-3">
             <button className={`btn-option flex-1 ${formData.want === 'Yes' ? 'selected' : ''}`} onClick={() => handleOptionSelect(2, 'Yes')}>Yes</button>
             <button className={`btn-option flex-1 ${formData.want === 'Maybe' ? 'selected' : ''}`} onClick={() => handleOptionSelect(2, 'Maybe')}>Maybe Later</button>
           </div>
-          <button className="text-[10px] w-full text-slate-400" onClick={() => setStep(1)}>Go Back</button>
+          <button className="text-[10px] w-full text-slate-400 font-bold uppercase tracking-widest" onClick={() => setStep(1)}>Go Back</button>
         </div>
       )}
 
       {step === 3 && (
         <div className="animate-in fade-in slide-in-from-right-4 space-y-1">
-          <h3 className="text-center font-bold text-[#0F5132] mb-2 text-sm">Finish Sign Up</h3>
+          <h3 className="text-center font-bold text-[#064e3b] mb-3 text-sm">Finish Sign Up</h3>
           <input placeholder="Full Name" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
           <input type="tel" placeholder="WhatsApp (e.g. 0300...)" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} />
-          <div className="flex gap-2">
-            <input type="number" placeholder="Age" className="w-16" value={formData.age} onChange={e => setFormData({ ...formData, age: e.target.value })} />
+          <div className="flex gap-3">
+            <input type="number" placeholder="Age" className="flex-[0.4]" value={formData.age} onChange={e => setFormData({ ...formData, age: e.target.value })} />
             <input placeholder="Profession" className="flex-1" value={formData.profession} onChange={e => setFormData({ ...formData, profession: e.target.value })} />
           </div>
-          <button className="btn-primary py-3" disabled={isSubmitting} onClick={handleSubmit}>{isSubmitting ? '...' : 'Register Now'}</button>
+          <button className="btn-primary py-3.5 mt-2" disabled={isSubmitting} onClick={handleSubmit}>{isSubmitting ? '...' : 'Register Now'}</button>
         </div>
       )}
 
       {isSuccess && (
-        <div className="text-center py-4 animate-in zoom-in">
-          <div className="w-12 h-12 bg-green-100 text-[#0F5132] rounded-full flex items-center justify-center mx-auto mb-2"><Icons.CheckCircle className="w-6 h-6" /></div>
-          <h2 className="text-lg font-bold text-[#0F5132]">Registered!</h2>
-          <p className="text-xs text-slate-500">Check your WhatsApp.</p>
+        <div className="text-center py-6 animate-in zoom-in">
+          <div className="w-14 h-14 bg-emerald-50 text-[#064e3b] rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner"><Icons.CheckCircle className="w-8 h-8" /></div>
+          <h2 className="text-xl font-bold text-[#064e3b]">Success!</h2>
+          <p className="text-xs text-slate-500 mt-1">Registration complete.</p>
         </div>
       )}
     </div>
@@ -163,24 +163,24 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({ program, onClose }
           <hr className="border-slate-100 mb-4" />
           <div className="grid grid-cols-3 gap-6 px-2">
             <a href={whatsappLink} target="_blank" className="flex flex-col items-center gap-2 group cursor-pointer">
-              <div className="w-12 h-12 rounded-full bg-green-50 text-[#25D366] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-green-100">
+              <div className="w-12 h-12 rounded-full bg-green-50 text-[#25D366] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-green-200">
                 <Icons.Phone className="w-6 h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-green-600 transition-colors">WhatsApp</span>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 group-hover:text-green-600 transition-colors">Contact</span>
             </a>
 
             <button onClick={() => alert("Subscribed!")} className="flex flex-col items-center gap-2 group cursor-pointer">
-              <div className="w-12 h-12 rounded-full bg-orange-50 text-[#f97316] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-orange-100">
+              <div className="w-12 h-12 rounded-full bg-orange-50 text-[#f97316] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-orange-200">
                 <Icons.Bell className="w-6 h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-orange-500 transition-colors">Alerts</span>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 group-hover:text-orange-500 transition-colors">Get Alerts</span>
             </button>
 
             <a href={program.googleMapsLink} target="_blank" className="flex flex-col items-center gap-2 group cursor-pointer">
-              <div className="w-12 h-12 rounded-full bg-slate-50 text-[#475569] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-slate-100">
-                <Icons.Navigation className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-full bg-slate-50 text-[#475569] flex items-center justify-center group-active:scale-90 transition-transform shadow-sm border border-slate-200">
+                <Icons.MapPin className="w-6 h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-slate-600 transition-colors">Map</span>
+              <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 group-hover:text-slate-600 transition-colors">Location</span>
             </a>
           </div>
         </div>

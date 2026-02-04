@@ -2,9 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Gulzar&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@font-face {
+  font-family: 'AlQalam';
+  src: url('/src/assets/fonts/Al Qalam Quran Majeed Web Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AlMushaf';
+  src: url('/src/assets/fonts/Al Mushaf Quran.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --brand-emerald: #064e3b;
+  --brand-gold: #d4af37;
+  --brand-parchment: #fdfcf6;
+  --brand-slate: #0f172a;
+}
+
 /* Global Styles */
 * {
   -webkit-tap-highlight-color: transparent;
+  outline-color: var(--brand-emerald);
+}
+
+body {
+  background-color: var(--brand-parchment);
+  color: var(--brand-slate);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
 }
 
 /* Custom Scrollbar Hiding Utility */
