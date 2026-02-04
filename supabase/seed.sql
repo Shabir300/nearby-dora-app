@@ -39,4 +39,15 @@ VALUES
 ('Saeed Colony No. 2', 'Quran Academy', 'Saeed Colony No. 2, Faisalabad', 31.43076, 73.1324583, '+923339837986', 'https://maps.app.goo.gl/V3a4qqMtYdiV9qto7', '08:00 PM', 'Religious', 'Dora Quran Team'),
 ('Samanabad', 'Al-Madina Marquee', 'Al-Madina Marquee / Marriage Hall, Samanabad, Faisalabad', 31.3907339, 73.117811, '+923217200799', 'https://maps.app.goo.gl/s4bW83WWSWwJ9GJD7', '08:00 PM', 'Religious', 'Dora Quran Team'),
 ('Islamia Park', 'Jamia Masjid Usmania', 'Islamia Park, Faisalabad', 31.4662, 73.2374, '+923007604477', 'https://maps.google.com/?q=31.4662,73.2374', '08:00 PM', 'Religious', 'Dora Quran Team'),
-('Mansoor Abad', 'Jamia Masjid Rahman', 'Jhumra Road, Mansoor Abad, Faisalabad', 31.4367791, 73.1127591, '+923007997862', 'https://maps.app.goo.gl/8Lp2pH2igZiD8TSd7?g_st=aw', '08:00 PM', 'Religious', 'Dora Quran Team');
+('Mansoor Abad', 'Jamia Masjid Rahman', 'Jhumra Road, Mansoor Abad, Faisalabad', 31.4367791, 73.1127591, '+923007997862', 'https://maps.app.goo.gl/8Lp2pH2igZiD8TSd7?g_st=aw', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Johar Town', 'Dee Floras Marquee', 'behind LDA Sports Complex, Johar Town', 31.4697, 74.2728, '+923213864939', 'https://maps.google.com/?q=31.4697,74.2728', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Multan Road', 'Jamia Masjid Dar-ul-Islam', '23-KM Multan Road', 31.3962, 74.1724, '+923328420933', 'https://maps.google.com/?q=31.3962,74.1724', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Model Town', 'Masjid Jamia-ul-Quran', '36-K, Model Town', 31.4842, 74.3256, '+923214784832', 'https://maps.google.com/?q=31.4842,74.3256', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Bahria Town', 'Heaven Marquee', 'opposite Main Entrance, Bahria Town', 31.3685, 74.1843, '+923218239921', 'https://maps.google.com/?q=31.3685,74.1843', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Samanabad', 'Jamia Masjid Bint-e-Kaaba', 'N-Poonch Road, Samanabad', 31.5365, 74.3012, '+923004054762', 'https://maps.google.com/?q=31.5365,74.3012', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Shadbagh', 'Ali Subhani Shadi Hall', 'near Lari Adda, Shadbagh', 31.5994, 74.3415, '+923344216116', 'https://maps.google.com/?q=31.5994,74.3415', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Bedian Road', 'Askari Marquee', 'opposite Askari-3, Bedian Road, Cantt', 31.4882, 74.4012, '+923215112322', 'https://maps.google.com/?q=31.4882,74.4012', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Ferozepur Road', 'Noor Mahal Event Complex', 'Pink Stop, Ferozepur Road', 31.4251, 74.3541, '+923218477002', 'https://maps.google.com/?q=31.4251,74.3541', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Bedian Road', 'The Royal Palace Event Complex', 'Bedian Road', 31.4725, 74.4256, '+923214382552', 'https://maps.google.com/?q=31.4725,74.4256', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Jorey Pul', 'Masjid-al-Huda', 'Bahar Shah Road, Jorey Pul', 31.5460, 74.4055, '+923234974115', 'https://maps.google.com/?q=31.5460,74.4055', '08:00 PM', 'Religious', 'Dora Quran Team'),
+    ('Mustafa Town', 'Qasr-e-Saeed Banquet Hall', '13-A Wahdat Road, Mustafa Town', 31.5124, 74.2885, '+923344162499', 'https://maps.google.com/?q=31.5124,74.2885', '08:00 PM', 'Religious', 'Dora Quran Team');
