@@ -12,6 +12,7 @@ export const CITIES = [
   { name: 'Murree', lat: 33.9070, lng: 73.3943 },
   { name: 'Kot Addu', lat: 30.4761, lng: 70.9644 },
   { name: 'Abbottabad', lat: 34.1688, lng: 73.2215 },
+  { name: 'Lahore', lat: 31.5204, lng: 74.3587 },
 ];
 
 // Using High-Quality Solid/Filled Icons (Heroicons Solid Style) for a more mature/premium feel
