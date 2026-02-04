@@ -364,6 +364,11 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   program,
   onClose,
 }) => {
+  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [isSubmittingWhatsApp, setIsSubmittingWhatsApp] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
   const displayName =
     program.name
       .replace(/dora\s*quran/gi, "")
@@ -377,49 +382,58 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
 
   async function handleNotifications() {
-    try {
-      
-      const mobile = prompt(
-        "Do you want WhatsApp reminders too? Enter your number (e.g., 03001234567):",
-      );
-      if (mobile) {
-        try {
-          const formattedMobile = mobile.replace(/\D/g, "");
-          const finalMobile = formattedMobile.startsWith(
-            "92",
-          )
-            ? formattedMobile
-            : "92" + formattedMobile.replace(/^0/, "");
+    setIsWhatsAppModalOpen(true);
+  }
 
-          await fetch(
-            "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                
-              },
-              body: JSON.stringify({
-                phone: finalMobile,
-                venue: program.venue,
-                name: program.name,
-              }),
-            },
-          );
-          // alert("WhatsApp reminders enabled!"); // Optional: Let them know
-        } catch (err) {
-          console.error("WhatsApp sub failed", err);
-        }
-      }
-    } catch (e) {
-      console.error("Welcome Push Error:", e);
-      // Still success for the user as DB save worked
-      alert(`✅ Notifications enabled!`);
+  async function submitWhatsApp() {
+    if (!whatsappNumber) return;
+    setIsSubmittingWhatsApp(true);
+    try {
+      const formattedMobile = whatsappNumber.replace(/\D/g, "");
+      const finalMobile = formattedMobile.startsWith("92")
+        ? formattedMobile
+        : "92" + formattedMobile.replace(/^0/, "");
+
+      await fetch(
+        "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phone: finalMobile,
+            venue: program.venue,
+            name: program.name,
+          }),
+        },
+      );
+      setIsWhatsAppModalOpen(false);
+      setWhatsappNumber("");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } catch (err) {
+      console.error("WhatsApp sub failed", err);
+      alert("Failed to enable WhatsApp reminders. Please try again.");
+    } finally {
+      setIsSubmittingWhatsApp(false);
     }
   }
 
   return (
     <div className="fixed inset-0 z-[2000] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4 animate-in fade-in duration-500 ease-out">
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[4000] w-[90%] max-w-sm animate-in slide-in-from-top-4 duration-300">
+          <div className="bg-[#004d33] text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-white/20">
+            <div className="bg-white/20 p-1 rounded-full">
+              <Icons.CheckCircle className="w-5 h-5 text-white" />
+            </div>
+            <p className="text-sm font-bold">WhatsApp reminders enabled!</p>
+          </div>
+        </div>
+      )}
+
       {/* Click outside to close */}
       <div className="absolute inset-0" onClick={onClose}></div>
 
@@ -584,6 +598,67 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
           </p>
         </div>
       </div>
+
+      {/* WhatsApp Reminder Modal */}
+      {isWhatsAppModalOpen && (
+        <div className="fixed inset-0 z-[3000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div 
+            className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-in zoom-in-95 duration-300 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setIsWhatsAppModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              <Icons.Close />
+            </button>
+
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto">
+                <Icons.Phone className="w-8 h-8 text-[#25D366]" />
+              </div>
+              
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-slate-800">WhatsApp Reminders</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Enter your whatsapp number to recieve daily reminders for Dora Tarjuma-e-Quran (03XXXXXXXXX)
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <input
+                  type="tel"
+                  autoFocus
+                  value={whatsappNumber}
+                  onChange={(e) => setWhatsappNumber(e.target.value)}
+                  placeholder="03XXXXXXXXX"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-100 focus:border-[#25D366] focus:outline-none text-center text-lg font-semibold transition-all"
+                  onKeyDown={(e) => e.key === "Enter" && submitWhatsApp()}
+                />
+                
+                <button
+                  onClick={submitWhatsApp}
+                  disabled={isSubmittingWhatsApp || !whatsappNumber}
+                  className="w-full bg-[#25D366] hover:bg-[#1ebc57] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-200 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                  {isSubmittingWhatsApp ? (
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    "Enable Reminders"
+                  )}
+                </button>
+                
+                <button
+                  onClick={() => setIsWhatsAppModalOpen(false)}
+                  className="text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  Maybe Later
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
