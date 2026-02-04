@@ -1,0 +1,389 @@
+{
+  "name": "Dora Quran Daily Reminders",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "daily-reminders-subscribe",
+        "options": {
+          "responseMode": "responseNode"
+        }
+      },
+      "name": "Webhook Subscribe",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "OPTIONS",
+        "path": "daily-reminders-subscribe",
+        "options": {
+          "responseMode": "responseNode"
+        }
+      },
+      "name": "Webhook Options",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 140]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"ok\"\n}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"ok\"\n}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Respond to Options",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [700, 140]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO whatsapp_subscribers (phone, venue, name) VALUES ($1, $2, $3) ON CONFLICT (phone) DO UPDATE SET venue = $2, name = $3;",
+        "additionalFields": {
+          "queryParams": "={{$json.phone}},{{$json.venue}},{{$json.name}}"
+        }
+      },
+      "name": "Save Subscriber",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Postgres - Neon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 18,
+              "minute": 0
+            }
+          ]
+        }
+      },
+      "name": "Schedule 6pm",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 500]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT phone, venue FROM whatsapp_subscribers;"
+      },
+      "name": "Get Subscribers 6pm",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [460, 500],
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Postgres - Neon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://waha:3000/api/sendText",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chatId",
+              "value": "={{$json.phone}}@c.us"
+            },
+            {
+              "name": "text",
+              "value": "=✨ Journey through the Quran. Get ready for Dora Tarjuma e Quran at {{$json.venue}} at 8:00 pm. \"And We have certainly made the Quran easy for remembrance...\" (54:17)."
+            },
+            {
+              "name": "session",
+              "value": "default"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send WA 6pm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 19,
+              "minute": 40
+            }
+          ]
+        }
+      },
+      "name": "Schedule 7:40pm",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 700]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT phone, venue FROM whatsapp_subscribers;"
+      },
+      "name": "Get Subscribers 7:40pm",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [460, 700],
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Postgres - Neon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://waha:3000/api/sendText",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chatId",
+              "value": "={{$json.phone}}@c.us"
+            },
+            {
+              "name": "text",
+              "value": "=Dora Quran Alert: 20 minutes until the tarawih begin. See you at {{$json.venue}} at 8:00 pm today!"
+            },
+            {
+              "name": "session",
+              "value": "default"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send WA 7:40pm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [680, 700]
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 20,
+              "minute": 0
+            }
+          ]
+        }
+      },
+      "name": "Schedule 8pm",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 900]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT phone, venue FROM whatsapp_subscribers;"
+      },
+      "name": "Get Subscribers 8pm",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [460, 900],
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_POSTGRES_CREDENTIAL_ID",
+          "name": "Postgres - Neon"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://waha:3000/api/sendText",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chatId",
+              "value": "={{$json.phone}}@c.us"
+            },
+            {
+              "name": "text",
+              "value": "The Journey Begins. Don't worry if you're running a few minutes late—find a spot and join the reflection."
+            },
+            {
+              "name": "session",
+              "value": "default"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Send WA 8pm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [680, 900]
+    }
+  ],
+  "connections": {
+    "Webhook Subscribe": {
+      "main": [
+        [
+          {
+            "node": "Save Subscriber",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Options": {
+      "main": [
+        [
+          {
+            "node": "Respond to Options",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Subscriber": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule 6pm": {
+      "main": [
+        [
+          {
+            "node": "Get Subscribers 6pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Subscribers 6pm": {
+      "main": [
+        [
+          {
+            "node": "Send WA 6pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule 7:40pm": {
+      "main": [
+        [
+          {
+            "node": "Get Subscribers 7:40pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Subscribers 7:40pm": {
+      "main": [
+        [
+          {
+            "node": "Send WA 7:40pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule 8pm": {
+      "main": [
+        [
+          {
+            "node": "Get Subscribers 8pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Subscribers 8pm": {
+      "main": [
+        [
+          {
+            "node": "Send WA 8pm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
