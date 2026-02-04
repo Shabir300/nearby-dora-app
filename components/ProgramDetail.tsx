@@ -308,7 +308,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
         : "92" + formattedMobile.replace(/^0/, "");
 
       await fetch(
-        "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
+        "https://n8n.premierchoiceint.online/webhook/daily-reminders-v1",
         {
           method: "POST",
           headers: {
