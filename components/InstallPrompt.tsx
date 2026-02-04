@@ -128,7 +128,7 @@ export const InstallPrompt: React.FC = () => {
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 z-[3000] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-6 animate-in fade-in duration-500">
+        <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-6 animate-in fade-in duration-500">
             <div className="bg-white w-full max-w-sm rounded-xl overflow-hidden shadow-2xl m-4 animate-in slide-in-from-bottom duration-500 transition-all">
 
                 {step === 'welcome' && (
