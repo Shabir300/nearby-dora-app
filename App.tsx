@@ -194,7 +194,7 @@ const App: React.FC = () => {
     [],
   );
 
-  // Fetch programs from Supabase
+  
   useEffect(() => {
     const fetchPrograms = async () => {
       setLoading(true);
