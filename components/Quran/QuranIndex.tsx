@@ -43,9 +43,7 @@ export const QuranIndex: React.FC<QuranIndexProps> = ({ onSelect, onClose }) => 
             {/* Header & Search */}
             <div className="pt-12 px-6 pb-4">
                 <div className="flex items-center gap-3 mb-6">
-                    <button onClick={onClose} className="md:hidden p-2 -ml-2 text-slate-400">
-                        <Icons.ChevronLeft />
-                    </button>
+                    <button onClick={onClose}><Icons.ChevronLeft /></button>
                     <h2 className="text-2xl font-black text-[#0f172a]">The Noble Quran</h2>
                 </div>
 

@@ -106,6 +106,8 @@ export const QuranReader: React.FC<QuranReaderProps> = ({ mode, id, onBack, onNa
 
     return (
         <div className="flex flex-col h-full bg-[#fdfcf6]">
+
+            <button>Back</button>
             {/* Header - Matching Image Header style */}
             <div className="bg-white pt-12 pb-4 px-4 shrink-0 shadow-sm border-b border-slate-100 flex items-center justify-between z-20 sticky top-0">
                 <div className="flex items-center gap-1">
