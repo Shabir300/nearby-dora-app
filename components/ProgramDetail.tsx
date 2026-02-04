@@ -126,7 +126,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
         VALUES (${timestamp}, ${location}, ${formData.read}, ${formData.want}, ${formData.name}, ${formattedMobile}, ${formData.age}, ${formData.profession})`;
 
       // 3. Fire n8n webhook
-      fetch(N8N_WEBHOOK_URL, {
+      await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -141,7 +141,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
       }).catch((err) => console.warn("n8n webhook call failed:", err));
 
       // 4. Save to Google Sheet
-      fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
@@ -483,9 +483,9 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                       const subscription = await subscribeToPush();
                       if (subscription) {
                         try {
-                          const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-                          const anonKey = import.meta.env
-                            .VITE_SUPABASE_ANON_KEY;
+                          // const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+                          // const anonKey = import.meta.env
+                          //   .VITE_SUPABASE_ANON_KEY;
 
                           // n8n workflow
                           const mobile = prompt(
@@ -501,7 +501,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                                 : "92" + formattedMobile.replace(/^0/, "");
 
                               await fetch(
-                                "https://n8n.premierchoiceint.online/webhook/daily-reminders-subscribe",
+                                "https://n8n.premierchoiceint.online/webhook-test/daily-reminders-v1",
                                 {
                                   method: "POST",
                                   headers: {
