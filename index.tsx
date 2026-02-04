@@ -9,12 +9,20 @@ import { registerSW } from 'virtual:pwa-register';
 const updateSW = registerSW({
   onNeedRefresh() {
     console.log("New version detected. Refreshing app...");
-    // The true parameter forces the new service worker to take over immediately
     updateSW(true);
   },
   onOfflineReady() {
     console.log("App is ready for offline usage.");
   },
+});
+
+// Ensure page reloads when the new service worker takes control
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
 });
 
 // Periodic update check (every 60 minutes)

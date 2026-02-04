@@ -14,7 +14,7 @@ import { QuranReader } from './components/Quran/QuranReader';
 import { supabase } from './services/supabase';
 import { AboutPage } from './components/AboutPage';
 
-// Forced reload timestamp: 8
+// Forced reload timestamp: 9
 
 // Simple Error Boundary Component
 interface ErrorBoundaryProps {
