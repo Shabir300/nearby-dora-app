@@ -6,7 +6,15 @@ import { neon } from "@neondatabase/serverless";
 interface ProgramDetailProps {
   program: Program;
   onClose: () => void;
-}
+};
+
+  const formatPhone = (raw: string) => {
+    let num = raw.replace(/[\s\-\(\)]/g, "");
+    if (num.startsWith("+92")) num = num.slice(3);
+    else if (num.startsWith("92") && num.length === 12) num = num.slice(2);
+    else if (num.startsWith("0")) num = num.slice(1);
+    return "92" + num;
+  };
 
 const RegistrationForm = ({ program }: { program: Program }) => {
   const [step, setStep] = useState(1);
@@ -32,21 +40,99 @@ const RegistrationForm = ({ program }: { program: Program }) => {
     setTimeout(() => setStep(stepNum + 1), 200);
   };
 
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.mobile) return alert("Name & Mobile required");
-    setIsSubmitting(true);
-// <<<<<<< HEAD
+//   const handleSubmit = async () => {
+//     if (!formData.name || !formData.mobile) return alert("Name & Mobile required");
+//     setIsSubmitting(true);
+// // <<<<<<< HEAD
+// //     try {
+// //       const sql = neon("postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require");
+// //       const ts = new Date().toISOString();
+// //       const loc = program.venue || "Kashmir Plaza";
+// //       const phone = formData.mobile.replace(/\D/g, "").replace(/^0/, "92");
+
+// //       await sql`CREATE TABLE IF NOT EXISTS "registration-kashmir-plaza" (id SERIAL PRIMARY KEY, timestamp TEXT, location TEXT, read TEXT, want TEXT, name TEXT, mobile TEXT, age TEXT, profession TEXT)`;
+// //       await sql`INSERT INTO "registration-kashmir-plaza" (timestamp, location, read, want, name, mobile, age, profession) VALUES (${ts}, ${loc}, ${formData.read}, ${formData.want}, ${formData.name}, ${phone}, ${formData.age}, ${formData.profession})`;
+
+// //       fetch("https://n8n.premierchoiceint.online/webhook/registration-trigger", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_name: formData.name, user_phone: phone, venue: loc }) }).catch(() => { });
+// // =======
+//     const neon_db_url =
+//       "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+//     const ADMIN_PHONE = formatPhone(program.contact);
+//     const N8N_WEBHOOK_URL =
+//       "https://n8n.premierchoiceint.online/webhook/registration-trigger";
+//     const GOOGLE_SCRIPT_URL =
+//       "https://script.google.com/macros/s/AKfycbzXNQV7EreIbUiIMxuJQrDri_2BTehFLlauhpFGcVefP0I2Vnf8PyJYr5VdsXaztXlx/exec";
+
 //     try {
-//       const sql = neon("postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require");
-//       const ts = new Date().toISOString();
-//       const loc = program.venue || "Kashmir Plaza";
-//       const phone = formData.mobile.replace(/\D/g, "").replace(/^0/, "92");
+//       const sql = neon(neon_db_url);
+//       const timestamp = new Date().toISOString();
+//       const location = program.venue || "";
+//       const formattedMobile = formatPhone(formData.mobile);
+//       const tableName = `registration-${program.venue.replace(/[^a-z0-9-]/gi, '_')}`;
 
-//       await sql`CREATE TABLE IF NOT EXISTS "registration-kashmir-plaza" (id SERIAL PRIMARY KEY, timestamp TEXT, location TEXT, read TEXT, want TEXT, name TEXT, mobile TEXT, age TEXT, profession TEXT)`;
-//       await sql`INSERT INTO "registration-kashmir-plaza" (timestamp, location, read, want, name, mobile, age, profession) VALUES (${ts}, ${loc}, ${formData.read}, ${formData.want}, ${formData.name}, ${phone}, ${formData.age}, ${formData.profession})`;
+//       // 1. Create Table ()
+//       await sql`CREATE TABLE IF NOT EXISTS ${tableName} (
+//         id SERIAL PRIMARY KEY,
+//         timestamp TEXT,
+//         location TEXT,
+//         read TEXT,
+//         want TEXT,
+//         name TEXT,
+//         mobile TEXT,
+//         age TEXT,
+//         profession TEXT
+//       )`;
 
-//       fetch("https://n8n.premierchoiceint.online/webhook/registration-trigger", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_name: formData.name, user_phone: phone, venue: loc }) }).catch(() => { });
-// =======
+//       // 2. Insert Data
+//       await sql`INSERT INTO ${tableName} (timestamp, location, read, want, name, mobile, age, profession)
+//         VALUES (${timestamp}, ${location}, ${formData.read}, ${formData.want}, ${formData.name}, ${formattedMobile}, ${formData.age}, ${formData.profession})`;
+
+//       // 3. Fire n8n webhook
+//       await fetch(N8N_WEBHOOK_URL, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           user_name: formData.name,
+//           user_phone: formattedMobile,
+//           admin_phone: ADMIN_PHONE,
+//           age: formData.age,
+//           profession: formData.profession,
+//           venue: location,
+//           registered_at: timestamp,
+//         }),
+//       }).catch((err) => console.warn("n8n webhook call failed:", err));
+
+//       // 4. Save to Google Sheet
+//       await fetch(GOOGLE_SCRIPT_URL, {
+//         method: "POST",
+//         headers: { "Content-Type": "text/plain;charset=utf-8" },
+//         body: JSON.stringify({
+//           timestamp,
+//           location,
+//           sheetName: location,
+//           read: formData.read,
+//           want: formData.want,
+//           name: formData.name,
+//           mobile: formattedMobile,
+//           age: formData.age,
+//           profession: formData.profession,
+//         }),
+//       }).catch((err) => console.warn("Google Sheet call failed:", err));
+
+//       setIsSuccess(true);
+//       setStep(4);
+//     } catch (e) { console.log(e) }
+//     finally { setIsSubmitting(false); }
+//   };
+  
+
+ const handleSubmit = async () => {
+    if (!formData.name || !formData.mobile) {
+      alert("Please fill in your Name and WhatsApp Number.");
+      return;
+    }
+
+    setIsSubmitting(true);
     const neon_db_url =
       "postgresql://neondb_owner:npg_j7SFZqzR5the@ep-empty-rice-a18ykd4a-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
     const ADMIN_PHONE = formatPhone(program.contact);
@@ -60,9 +146,10 @@ const RegistrationForm = ({ program }: { program: Program }) => {
       const timestamp = new Date().toISOString();
       const location = program.venue || "";
       const formattedMobile = formatPhone(formData.mobile);
+      const tableName = `registration-${program.venue.replace(/[^a-z0-9-]/gi, '_')}`;
 
       // 1. Create Table (Idempotent)
-      await sql`CREATE TABLE IF NOT EXISTS "registration-${program.venue}" (
+      await sql`CREATE TABLE IF NOT EXISTS registeration (
         id SERIAL PRIMARY KEY,
         timestamp TEXT,
         location TEXT,
@@ -75,7 +162,7 @@ const RegistrationForm = ({ program }: { program: Program }) => {
       )`;
 
       // 2. Insert Data
-      await sql`INSERT INTO "registration-${program.venue}" (timestamp, location, read, want, name, mobile, age, profession)
+      await sql`INSERT INTO registeration (timestamp, location, read, want, name, mobile, age, profession)
         VALUES (${timestamp}, ${location}, ${formData.read}, ${formData.want}, ${formData.name}, ${formattedMobile}, ${formData.age}, ${formData.profession})`;
 
       // 3. Fire n8n webhook
@@ -112,8 +199,14 @@ const RegistrationForm = ({ program }: { program: Program }) => {
 
       setIsSuccess(true);
       setStep(4);
-    } catch (e) { console.error(e); alert("Failed"); }
-    finally { setIsSubmitting(false); }
+    } catch (e) {
+      console.error("Submission error:", e);
+      alert(
+        "Submission failed. Please check your internet connection and try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -257,7 +350,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
       {/* Click outside to close */}
       <div className="absolute inset-0" onClick={onClose}></div>
 
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={onClose} />
+      <div className="absolute inset-0 animate-in fade-in duration-300" onClick={onClose} />
 
       <div className="relative w-full max-w-sm bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-300 max-h-[85vh]">
 

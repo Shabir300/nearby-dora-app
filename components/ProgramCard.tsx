@@ -14,7 +14,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program, isActive, onV
   return (
     <div
       className={`group bg-white rounded-xl p-4 mb-3 border transition-all duration-200 cursor-pointer hover:bg-slate-50 flex items-center justify-between ${isActive
-        ? 'border-[#064e3b] shadow-md ring-1 ring-[#064e3b]/10 bg-slate-50'
+        ? 'border-[#064e3b] shadow-md ring-1 ring-[#064e3b]/10 '
         : 'border-slate-100 shadow-sm hover:border-slate-200'
         } active:scale-[0.99]`}
       onClick={() => onOpenDetails(program)}
