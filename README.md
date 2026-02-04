@@ -1,85 +1,47 @@
 # Nearby Dora Quran (Ramadan 2026)
 
-A location-based progressive web application (PWA) designed to help users find nearby *Dora Quran* programs and religious events during Ramadan. Built for speed, accessibility, and a premium mobile-first experience.
+A location-based web application built to help users find Dora Quran programs and religious events during Ramadan. This tool is designed for a premium mobile-first experience, focusing on speed and ease of use.
 
-## Key Features
+## Core Features
 
--   **Smart Geolocation**: Live tracking with intelligent debouncing (50m threshold) to prevent battery drain and data loops.
--   **Interactive Map**: Powered by Google Maps API with premium SVG vector markers and smooth camera automation.
--   **Minimalist UI**: Clean, tab-style program cards that expand into immersive, poster-like detail views.
--   **Robust Notifications**: "Alert Me" system with OneSignal and native browser permission fallback for reliable delivery.
--   **Location Search**: Autocomplete search to find programs in other areas (powered by Google Places).
--   **Cross-Platform PWA**: Optimized for iOS (Notch support), Android, and Desktop with offline caching and local assets.
--   **Haptic Feedback**: Subtle tactile response on interactions for a native app feel.
+-   Location Tracking: Smart geolocation that identifies programs near you without excessive battery drain.
+-   Interactive Maps: Built with Google Maps, featuring custom vector markers and automated camera movement for easy navigation.
+-   Design & Typography: Standardized with DM Sans for English and Gulzar for Urdu to ensure a professional and readable experience.
+-   Integrated Notifications: Uses OneSignal for reliable alerts, with a backup system for browsers that require manual permission checks.
+-   Area Search: Search for programs in specific cities or areas using Google Places autocomplete.
+-   PWA Support: Works as a native app on iOS and Android with offline caching and support for notch displays.
+-   Navigation Overhaul: High-contrast bottom navigation and an auto-hiding search panel that clears the view when you open a location card.
 
-## Tech Stack
+## Technical Details
 
--   **Frontend**: React (v19), TypeScript, Vite
--   **Styling**: Tailwind CSS, PostCSS
--   **Maps**: `@vis.gl/react-google-maps` (Google Maps JavaScript API)
--   **Backend / DB**: Supabase (PostgreSQL + Edge Functions)
--   **Notifications**: OneSignal SDK
--   **PWA**: `vite-plugin-pwa` (Workbox)
+The project is built on a modern stack for performance and reliability:
 
-## Architecture Notes 🛠️
+-   Frontend: React 19 with TypeScript and Vite.
+-   Styling: Tailwind CSS using a unified brand color palette (Emerald #064e3b and Gold #d4af37).
+-   Maps: React-integrated Google Maps API with Places and Geocoding.
+-   Backend: Supabase for the PostgreSQL database and Edge Functions.
+-   PWA Engine: Vite PWA plugin with custom service worker logic to handle both caching and notifications.
 
--   **Unified Service Worker**: The app uses a custom `service-worker.ts` (via `injectManifest`) to merge PWA offline caching with the OneSignal Push SDK. This prevents conflicts where push notifications might be blocked.
--   **SPA Routing**: Includes `vercel.json` to handle client-side routing on Vercel deployments.
--   **Data Consistency**: The database is seeded with a verified list of ~30 locations (`supabase/seed.sql`) to ensure accuracy over "probable" search results.
+## Development Setup
 
-## Getting Started
+To get the project running locally, follow these steps:
 
-### Prerequisites
+1.  Clone the project and enter the directory.
+2.  Run `npm install` to set up dependencies.
+3.  Add a `.env.local` file with your credentials (Google Maps Key, Supabase URL, and Anon Key).
+4.  Launch the development server with `npm run dev`.
 
--   Node.js (v18+)
--   NPM
--   Supabase Project (for database)
--   Google Maps API Key (Maps JavaScript, Places API, Geocoding)
--   OneSignal App ID
+## Deployment
 
-### Installation
+The application is structured for easy deployment on Vercel or similar platforms. Run `npm run build` to generate the production-ready dist folder. The configuration includes Vercel-specific routing to handle client-side paths.
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/your-username/nearby-dora-quran.git
-    cd nearby-dora-quran
-    ```
+## Mobile Design
 
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Environment Setup**
-    Create a `.env.local` file in the root directory:
-    ```env
-    VITE_GOOGLE_MAPS_API_KEY=your_google_maps_key
-    VITE_SUPABASE_URL=your_supabase_url
-    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
-
-4.  **Run Development Server**
-    ```bash
-    npm run dev
-    ```
-
-## Build & Deploy
-
-To create a production build:
-
-```bash
-npm run build
-```
-
-This generates a `dist` folder ready for deployment on platforms like **Vercel**, **Netlify**, or **Cloudflare Pages**.
-
-## Mobile Optimization
-
-The app is fully responsive with specific optimizations for mobile users:
--   **Bottom sheet** interactions for ease of access.
--   **Touch-friendly** buttons and hit targets.
--   **Adaptive layouts** (Stacking on mobile vs Sidebar on Desktop).
+The app is optimized for touch interaction:
+-   Bottom-sheet UI for quick access to location details.
+-   Tactile feedback on key buttons.
+-   Vertical centering and larger hit targets for thumb-friendly use.
 
 ## License
 
-Proprietary software developed for Tanzeem-e-Islami. All rights reserved.
+This software is proprietary and developed for Tanzeem-e-Islami. All rights reserved.
