@@ -23,7 +23,7 @@ ENV VITE_ONESIGNAL_APP_ID=$VITE_ONESIGNAL_APP_ID
 
 RUN npm run build
 
-# Stage 2: Serve with Nginx
+# Stage 2 Serve with Nginx
 FROM nginx:alpine
 
 # Copy built assets from builder stage
